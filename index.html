@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H13 Digital – Senior Performance Marketing Architect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+    <style>
+        :root{
+            --bg:#0a0e17;
+            --card:rgba(20,25,40,0.88);
+            --text:#e2e8f0;
+            
+            /* Digital Ecosystem Colors */
+            --ai-blue:#00aaff;
+            --data-green:#00ffaa;
+            --marketing-purple:#c084fc;
+            --growth-orange:#ff9966;
+            --ecosystem-teal:#00cccc;
+            --organic-green:#66ff99;
+            
+            --blue-light:#4dc3ff;
+            --blue-dark:#0066ff;
+            --border:rgba(0,170,255,0.25);
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:clip}
+        
+        /* ====================
+           DIGITAL ECOSYSTEM BACKGROUND
+           ==================== */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        /* Layer 1: Base Ecosystem Gradient */
+        .bg-layer-1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 85%, rgba(0, 204, 204, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 15%, rgba(102, 255, 153, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(0, 170, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 60%, rgba(192, 132, 252, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 10% 40%, rgba(255, 153, 102, 0.1) 0%, transparent 40%),
+                linear-gradient(135deg, #0a0e17 0%, #0d1425 30%, #0a0e17 100%);
+            opacity: 0.9;
+        }
+        
+        /* Layer 2: Organic Patterns */
+        .bg-layer-2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M150 50c27.614 0 50-22.386 50-50 0 27.614 22.386 50 50 50-27.614 0-50 22.386-50 50 0-27.614-22.386-50-50-50zM50 150c27.614 0 50-22.386 50-50 0 27.614 22.386 50 50 50-27.614 0-50 22.386-50 50 0-27.614-22.386-50-50-50zM250 150c27.614 0 50-22.386 50-50 0 27.614 22.386 50 50 50-27.614 0-50 22.386-50 50 0-27.614-22.386-50-50-50z' fill='%2300ffaa' fill-opacity='0.03'/%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 50c27.614 0 50-22.386 50-50 0 27.614 22.386 50 50 50-27.614 0-50 22.386-50 50 0-27.614-22.386-50-50-50zM50 100c27.614 0 50-22.386 50-50 0 27.614 22.386 50 50 50-27.614 0-50 22.386-50 50 0-27.614-22.386-50-50-50zM150 100c27.614 0 50-22.386 50-50 0 27.614 22.386 50 50 50-27.614 0-50 22.386-50 50 0-27.614-22.386-50-50-50z' fill='%2300aaff' fill-opacity='0.02'/%3E%3C/svg%3E");
+            background-size: 400px 400px, 300px 300px;
+            opacity: 0.3;
+            animation: ecosystemFloat 180s linear infinite;
+        }
+        
+        @keyframes ecosystemFloat {
+            0% { background-position: 0% 0%, 200px 100px; }
+            100% { background-position: 400px 400px, -200px -100px; }
+        }
+        
+        /* Layer 3: Digital Growth Elements */
+        .bg-layer-3 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.4;
+        }
+        
+        /* Growth Trees - Representing Data Growth */
+        .growth-tree {
+            position: absolute;
+            width: 3px;
+            height: 60px;
+            background: linear-gradient(to top, transparent, var(--organic-green));
+            bottom: 0;
+            animation: treeGrow 8s ease-in-out infinite;
+        }
+        
+        .growth-tree::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, var(--data-green) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+        
+        .growth-tree::after {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, var(--growth-orange) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.4;
+        }
+        
+        @keyframes treeGrow {
+            0%, 100% { 
+                height: 40px;
+                opacity: 0.3;
+            }
+            50% { 
+                height: 80px;
+                opacity: 0.6;
+            }
+        }
+        
+        /* Data Streams - Like rivers in ecosystem */
+        .data-river {
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--ecosystem-teal), transparent);
+            animation: riverFlow 10s linear infinite;
+            border-radius: 2px;
+        }
+        
+        @keyframes riverFlow {
+            0% { 
+                transform: translateX(-100px);
+                opacity: 0.1;
+            }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { 
+                transform: translateX(calc(100vw + 100px));
+                opacity: 0.1;
+            }
+        }
+        
+        /* AI Clouds - Processing elements */
+        .ai-cloud {
+            position: absolute;
+            width: 120px;
+            height: 40px;
+            background: radial-gradient(circle at 30px 20px, rgba(0, 170, 255, 0.3) 0%, transparent 50%),
+                       radial-gradient(circle at 70px 15px, rgba(0, 170, 255, 0.2) 0%, transparent 50%),
+                       radial-gradient(circle at 50px 30px, rgba(0, 170, 255, 0.25) 0%, transparent 50%);
+            border-radius: 50%;
+            filter: blur(5px);
+            animation: cloudFloat 25s linear infinite;
+        }
+        
+        @keyframes cloudFloat {
+            0% { 
+                transform: translateX(-150px);
+                opacity: 0.2;
+            }
+            50% { opacity: 0.4; }
+            100% { 
+                transform: translateX(calc(100vw + 150px));
+                opacity: 0.2;
+            }
+        }
+        
+        /* Marketing Sun - Central success element */
+        .marketing-sun {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--growth-orange) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.15;
+            filter: blur(10px);
+            animation: sunPulse 15s ease-in-out infinite;
+        }
+        
+        @keyframes sunPulse {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.1;
+            }
+            50% { 
+                transform: scale(1.2);
+                opacity: 0.2;
+            }
+        }
+        
+        /* Ecosystem Particles */
+        .ecosystem-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: particleFloat 20s linear infinite;
+        }
+        
+        @keyframes particleFloat {
+            0% { 
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { 
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Layer 4: Interactive Ecosystem Overlay */
+        .interactive-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                rgba(0, 204, 204, 0.1) 0%, 
+                rgba(102, 255, 153, 0.05) 20%, 
+                rgba(0, 170, 255, 0.03) 40%, 
+                transparent 60%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        
+        body:hover .interactive-overlay {
+            opacity: 1;
+        }
+        
+        /* Mobile optimization */
+        @media (max-width: 768px) {
+            .bg-layer-2 {
+                animation: none;
+                opacity: 0.15;
+            }
+            
+            .growth-tree, .data-river, .ai-cloud, .marketing-sun, .ecosystem-particle {
+                display: none;
+            }
+            
+            .interactive-overlay {
+                display: none;
+            }
+        }
+
+        /* ====================
+           NAVIGATION MENU - PERFORMANCE OPTIMIZED
+           ==================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 40px;
+            transition: all 0.4s ease;
+            background: rgba(10, 14, 23, 0.92);
+            border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        
+        .navbar.scrolled {
+            padding: 12px 40px;
+            background: rgba(10, 14, 23, 0.98);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(0, 170, 255, 0.3);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--ai-blue);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            border-radius: 12px;
+            background: rgba(0, 170, 255, 0.08);
+            border: 1px solid rgba(0, 170, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            background: rgba(0, 170, 255, 0.12);
+            border-color: var(--ai-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 170, 255, 0.2);
+        }
+        
+        .logo i {
+            color: var(--ai-blue);
+            font-size: 1.6rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .logo-text {
+            background: linear-gradient(90deg, var(--ai-blue), var(--blue-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            position: relative;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-link i {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        .nav-link:hover {
+            color: var(--ai-blue);
+            background: rgba(0, 170, 255, 0.05);
+        }
+        
+        .nav-link.active {
+            color: var(--ai-blue);
+            background: rgba(0, 170, 255, 0.1);
+        }
+        
+        .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 60%;
+            background: linear-gradient(to bottom, var(--ai-blue), var(--blue-dark));
+            border-radius: 0 3px 3px 0;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: var(--ai-blue);
+            background: rgba(0, 170, 255, 0.1);
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            border-radius: 8px;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger:hover {
+            background: rgba(0, 170, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        /* ====================
+           MOBILE MENU STYLES & PERFORMANCE OPTIMIZATION
+           ==================== */
+        @media (max-width: 1024px) {
+            .navbar {
+                padding: 15px 30px;
+            }
+            
+            .navbar.scrolled {
+                padding: 10px 30px;
+            }
+            
+            .nav-menu {
+                gap: 20px;
+            }
+            
+            .nav-link {
+                font-size: 1rem;
+                padding: 8px 14px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+                z-index: 1001;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 300px;
+                height: 100vh;
+                background: rgba(10, 14, 23, 0.98);
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                padding-top: 100px;
+                padding-left: 30px;
+                transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                box-shadow: -5px 0 40px rgba(0, 170, 255, 0.1);
+                border-left: 1px solid rgba(0, 170, 255, 0.3);
+                gap: 20px;
+                transform: translateZ(0);
+                will-change: transform;
+                -webkit-transform: translateZ(0);
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .nav-item {
+                width: 80%;
+            }
+            
+            .nav-link {
+                font-size: 1.2rem;
+                padding: 12px 20px;
+                display: flex;
+                width: 100%;
+                border: 1px solid rgba(0, 170, 255, 0.1);
+                margin-bottom: 5px;
+            }
+            
+            .nav-link.active {
+                border-color: rgba(0, 170, 255, 0.3);
+            }
+            
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                z-index: 999;
+                display: none;
+            }
+            
+            .overlay.active {
+                display: block;
+            }
+            
+            /* TỐI ƯU QUAN TRỌNG: THAY THẾ BACKDROP-FILTER BẰNG SOLID BACKGROUND */
+            .navbar {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: rgba(10, 14, 23, 0.98) !important;
+            }
+            
+            .card {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background: rgba(20, 25, 40, 0.95) !important;
+                transform: none !important;
+                -webkit-transform: none !important;
+                transition: none !important;
+            }
+            
+            /* Tối ưu cho các section */
+            .section, .final, header {
+                transform: none !important;
+                -webkit-transform: none !important;
+                backface-visibility: visible !important;
+                perspective: none !important;
+                will-change: auto !important;
+            }
+            
+            /* Tối ưu cho các nút */
+            .btn-primary, .btn-outline, .final-cta {
+                transform: none !important;
+                -webkit-transform: none !important;
+                transition: none !important;
+            }
+            
+            /* Tối ưu cho text */
+            .hero h1, .section-headline, .industries h2, .final h2 {
+                transform: none !important;
+                -webkit-transform: none !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 12px 20px;
+            }
+            
+            .navbar.scrolled {
+                padding: 8px 20px;
+            }
+            
+            .logo {
+                font-size: 1.4rem;
+                padding: 6px 12px;
+            }
+            
+            .logo i {
+                font-size: 1.3rem;
+            }
+            
+            .nav-menu {
+                width: 100%;
+                padding-left: 25px;
+            }
+            
+            .nav-link {
+                font-size: 1.1rem;
+                padding: 10px 18px;
+            }
+            
+            .card {
+                background: rgba(20, 25, 40, 0.98) !important;
+            }
+        }
+
+        /* FIX: Cho phép bôi đen text trong hero */
+        header, .hero, .hero h1, .hero .job-title, .hero p, .hero small {
+            user-select: text !important;
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+        }
+
+        /* HERO SECTION - TỐI ƯU CHO MOBILE */
+        header{
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            position:relative;
+            padding:30px 20px 20px;
+            overflow:hidden;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+
+        /* TÊN CHÍNH */
+        .hero h1{
+            font-size:4rem;
+            font-weight:900;
+            letter-spacing:-2px;
+            background:linear-gradient(90deg, var(--ai-blue), var(--ecosystem-teal));
+            -webkit-background-clip:text;
+            background-clip:text;
+            -webkit-text-fill-color:transparent;
+            line-height:1.1;
+            margin-bottom:10px;
+            transform: translateZ(0);
+        }
+
+        /* DÒNG TIÊU ĐỀ CÔNG VIỆC */
+        .hero .job-title{
+            font-size:1.8rem;
+            font-weight:600;
+            color:var(--ai-blue);
+            letter-spacing:1px;
+            margin-bottom:15px;
+            text-transform:uppercase;
+            opacity:0.9;
+            line-height:1.2;
+        }
+
+        /* MÔ TẢ CHÍNH */
+        .hero p{
+            font-size:1.8rem;
+            max-width:1000px;
+            margin:0 auto 25px;
+            opacity:0.94;
+            line-height:1.5;
+            padding:0 15px;
+        }
+
+        /* TAGLINE */
+        .hero small{
+            display:block;
+            margin:20px 0 0;
+            font-size:1.4rem;
+            opacity:0.78;
+            padding:0 15px;
+            line-height:1.4;
+        }
+
+        /* BUTTONS */
+        .buttons{
+            display:flex;
+            gap:20px;
+            justify-content:center;
+            flex-wrap:wrap;
+            margin-top:40px;
+            padding:0 15px;
+            padding-bottom: 20px;
+        }
+        
+        /* NÚT CTA - TỐI ƯU BOX-SHADOW */
+        .btn-primary{
+            background:linear-gradient(135deg, var(--ai-blue), var(--growth-orange));
+            color:#fff;
+            padding:18px 40px;
+            font-size:1.3rem;
+            font-weight:700;
+            border-radius:18px;
+            text-decoration:none;
+            box-shadow:0 12px 30px rgba(0,102,255,.5);
+            transition:.3s;
+            border:none;
+            cursor:pointer;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            min-width:260px;
+            line-height:1.3;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+        .btn-primary:hover{
+            transform:translateY(-6px);
+            box-shadow:0 20px 40px rgba(0,102,255,.7);
+            text-decoration:none;
+        }
+        
+        .btn-outline{
+            background:transparent;
+            color:var(--ai-blue);
+            border:2px solid var(--ai-blue);
+            padding:16px 38px;
+            font-size:1.3rem;
+            border-radius:18px;
+            text-decoration:none;
+            transition:.3s;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            min-width:240px;
+            line-height:1.3;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+        .btn-outline:hover{
+            background:rgba(0,170,255,0.1);
+            transform:translateY(-6px);
+            text-decoration:none;
+        }
+
+        /* ====================
+           CHỈNH CHIỀU CAO HERO SESSION
+           ==================== */
+        @media (min-width: 769px) {
+            header {
+                min-height: 100vh;
+                height: 100vh;
+                padding: 20px 20px 30px;
+                padding-top: 100px;
+            }
+        }
+
+        /* TABLET (481px - 768px) */
+        @media (max-width: 768px) and (min-width: 481px) {
+            header{
+                padding:20px 15px 15px !important;
+                min-height: 70vh !important;
+                justify-content: flex-start;
+                align-items: flex-start;
+                padding-top: 15vh !important;
+            }
+            
+            .hero{
+                padding-top: 20px;
+            }
+            
+            .hero h1{
+                font-size:2.5rem !important;
+                margin-bottom:15px !important;
+            }
+            
+            .hero .job-title{
+                font-size:1.3rem !important;
+                margin-bottom:18px !important;
+            }
+            
+            .hero p{
+                font-size:1.3rem !important;
+                margin-bottom:18px !important;
+                line-height:1.4;
+            }
+            
+            .hero small{
+                font-size:1.1rem !important;
+                margin-top:18px !important;
+            }
+            
+            .buttons{
+                margin-top:30px !important;
+                gap:15px !important;
+            }
+            
+            .btn-primary, .btn-outline{
+                max-width:300px !important;
+                padding:15px 30px !important;
+                box-shadow:0 6px 15px rgba(0,102,255,.4) !important;
+            }
+            
+            .btn-primary:hover, .btn-outline:hover{
+                box-shadow:0 10px 20px rgba(0,102,255,.5) !important;
+            }
+        }
+
+        /* MOBILE (480px trở xuống) */
+        @media (max-width: 480px) {
+            header{
+                padding:15px 15px 20px !important;
+                min-height: 60vh !important;
+                justify-content: flex-start;
+                align-items: center;
+                display: flex !important;
+                padding-top: 8vh !important;
+                margin-bottom: 20px;
+            }
+            
+            .hero{
+                padding-top: 10px;
+                text-align: center;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .hero h1{
+                font-size:2.2rem !important;
+                margin-bottom:10px !important;
+                line-height:1.1;
+                padding: 0 10px;
+            }
+            
+            .hero .job-title{
+                font-size:1.1rem !important;
+                margin-bottom:12px !important;
+                letter-spacing:0.8px;
+                padding: 0 15px;
+                line-height: 1.3;
+            }
+            
+            .hero p{
+                font-size:1.15rem !important;
+                margin-bottom:15px !important;
+                line-height:1.4;
+                padding:0 15px !important;
+            }
+            
+            .hero small{
+                font-size:0.95rem !important;
+                margin-top:15px !important;
+                padding:0 15px !important;
+                line-height:1.3;
+            }
+            
+            .buttons{
+                flex-direction:column;
+                align-items:center;
+                gap:12px !important;
+                margin-top:25px !important;
+                padding:0 10px !important;
+                padding-bottom: 10px !important;
+                width: 100%;
+                max-width: 320px;
+            }
+            
+            .btn-primary, .btn-outline{
+                width:100% !important;
+                max-width:320px !important;
+                padding:14px 25px !important;
+                font-size:1.05rem !important;
+                min-width:auto !important;
+                border-radius:16px !important;
+                box-shadow:0 4px 10px rgba(0,102,255,.3) !important;
+            }
+            
+            .btn-primary:hover, .btn-outline:hover{
+                transform:translateY(-2px) !important;
+                box-shadow:0 6px 15px rgba(0,102,255,.4) !important;
+            }
+        }
+
+        /* SMALL MOBILE (360px trở xuống) */
+        @media (max-width: 360px) {
+            header{
+                padding:12px 12px 15px !important;
+                min-height: 55vh !important;
+                padding-top: 6vh !important;
+                margin-bottom: 15px;
+            }
+            
+            .hero h1{
+                font-size:2rem !important;
+                margin-bottom:8px !important;
+            }
+            
+            .hero .job-title{
+                font-size:1rem !important;
+                margin-bottom:10px !important;
+            }
+            
+            .hero p{
+                font-size:1.05rem !important;
+                margin-bottom:12px !important;
+                line-height:1.3;
+            }
+            
+            .hero small{
+                font-size:0.9rem !important;
+                margin-top:12px !important;
+            }
+            
+            .buttons{
+                margin-top:20px !important;
+                gap:10px !important;
+            }
+            
+            .btn-primary, .btn-outline{
+                max-width:300px !important;
+                padding:12px 20px !important;
+                font-size:1rem !important;
+            }
+        }
+
+        /* ====================
+           SERVICES SECTION HEADLINE
+           ==================== */
+        .section-headline {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(90deg, var(--ai-blue), var(--ecosystem-teal));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.3;
+            padding: 0 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            transform: translateZ(0);
+        }
+        
+        @media (max-width: 768px) {
+            .section-headline {
+                font-size: 2.3rem;
+                margin-bottom: 45px;
+                line-height: 1.2;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .section-headline {
+                font-size: 1.9rem;
+                margin-bottom: 35px;
+                padding: 0 15px;
+            }
+        }
+
+        /* PHẦN CÒN LẠI GIỮ NGUYÊN */
+        .section{
+            padding:100px 30px;
+            max-width:1500px;
+            margin:0 auto;
+            position:relative;
+            z-index:10;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+        
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(400px,1fr));
+            gap:50px;
+            margin-top:90px;
+        }
+        
+        .card{
+            background:var(--card);
+            backdrop-filter:blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border:1px solid var(--border);
+            border-radius:36px;
+            padding:50px;
+            transition:all .6s;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            border: 1px solid rgba(0, 170, 255, 0.2);
+        }
+        
+        /* FIX: Điều chỉnh font size h3 trong card service session bằng với industry session */
+        .card h3{
+            font-size:1.6rem;
+            margin-bottom:28px;
+            background:linear-gradient(90deg, var(--ai-blue), var(--growth-orange));
+            -webkit-background-clip:text;
+            background-clip:text;
+            -webkit-text-fill-color:transparent;
+            line-height:1.2;
+            font-weight: 700;
+        }
+        
+        .card ul{
+            list-style:none;
+            margin-top:28px;
+        }
+        
+        .card li{
+            position:relative;
+            padding-left:40px;
+            font-size:1.3rem;
+            line-height:1.7;
+            margin:18px 0;
+            opacity:0.96;
+        }
+        
+        .card li::before{
+            content:"▸";
+            position:absolute;
+            left:0;
+            color:var(--ai-blue);
+            font-weight:bold;
+            font-size:1.6rem;
+        }
+
+        .industries h2{
+            font-size:3rem;
+            text-align:center;
+            margin-bottom:60px;
+            background:linear-gradient(90deg, var(--ai-blue), var(--ecosystem-teal));
+            -webkit-background-clip:text;
+            background-clip:text;
+            -webkit-text-fill-color:transparent;
+            line-height:1.3;
+            padding:0 20px;
+        }
+        
+        .industries .card{
+            text-align:center;
+            padding:40px 25px;
+        }
+        
+        /* FIX: Giữ nguyên font size h3 trong card industry session */
+        .industries .card h3{
+            font-size:1.6rem;
+            margin-bottom:18px;
+            color:#fff;
+            font-weight: 700;
+        }
+        
+        .industries .card p{
+            opacity:0.88;
+            line-height:1.6;
+            font-size:1.25rem;
+        }
+
+        /* ====================
+           FINAL CALL-TO-ACTION (#talk) - FIXED FOR MOBILE
+           ==================== */
+        .final{
+            text-align:center;
+            padding:120px 20px 140px;
+            background:linear-gradient(135deg,rgba(10,14,23,.99),rgba(20,30,50,.99));
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            border-top: 1px solid rgba(0, 170, 255, 0.1);
+        }
+        
+        .final h2{
+            font-size:3.4rem;
+            margin-bottom:40px;
+            line-height:1.3;
+            color:#fff;
+            padding:0 20px;
+        }
+        
+        .final-cta{
+            display:inline-block;
+            background:linear-gradient(135deg, var(--ai-blue), var(--growth-orange));
+            color:#fff;
+            padding:34px 90px;
+            border-radius:50px;
+            text-decoration:none;
+            font-size:1.8rem;
+            font-weight:900;
+            box-shadow:0 30px 80px rgba(0,102,255,.6);
+            transition:all .4s;
+            line-height:1.4;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+        
+        .final-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 40px 90px rgba(0, 102, 255, 0.7);
+        }
+        
+        .final-cta small{
+            display:block;
+            font-size:1.4rem;
+            font-weight:500;
+            margin-top:10px;
+            opacity:0.9;
+            color: #fff;
+        }
+
+        /* RESPONSIVE CHO CÁC PHẦN KHÁC */
+        @media (max-width: 768px){
+            .section{
+                padding:70px 20px;
+            }
+            
+            .grid{
+                grid-template-columns:1fr;
+                gap:25px;
+                margin-top:50px;
+            }
+            
+            .card{
+                padding:30px 25px;
+                border-radius:28px;
+            }
+            
+            .card h3{
+                font-size:1.4rem;
+                margin-bottom:22px;
+            }
+            
+            .card li{
+                padding-left:32px;
+                font-size:1.15rem;
+                line-height:1.5;
+                margin:14px 0;
+            }
+            
+            .industries h2{
+                font-size:2.3rem;
+                margin-bottom:45px;
+            }
+            
+            .industries .card{
+                padding:30px 20px;
+            }
+            
+            .industries .card h3{
+                font-size:1.4rem;
+                margin-bottom:15px;
+            }
+            
+            .industries .card p{
+                font-size:1.15rem;
+            }
+            
+            .final{
+                padding:90px 15px 100px;
+            }
+            
+            .final h2{
+                font-size:2.4rem;
+                margin-bottom:35px;
+                line-height: 1.2;
+                padding: 0 15px;
+            }
+            
+            .final-cta{
+                padding:28px 60px;
+                font-size:1.5rem;
+                border-radius:40px;
+                box-shadow:0 10px 30px rgba(0,102,255,.4) !important;
+            }
+            
+            .final-cta small{
+                font-size:1.2rem;
+            }
+        }
+
+        /* FIX FINAL CTA (#talk) ON MOBILE (480px trở xuống) */
+        @media (max-width: 480px) {
+            .final{
+                padding:70px 15px 80px;
+            }
+            
+            .final h2{
+                font-size:1.9rem !important;
+                margin-bottom:30px !important;
+                line-height: 1.2;
+                padding: 0 10px;
+            }
+            
+            .final-cta{
+                padding:22px 40px !important;
+                font-size:1.3rem !important;
+                border-radius:35px !important;
+                max-width: 90%;
+                box-shadow:0 8px 25px rgba(0,102,255,.35) !important;
+            }
+            
+            .final-cta small{
+                font-size:1rem !important;
+                margin-top:8px;
+            }
+        }
+
+        /* FIX FINAL CTA (#talk) ON SMALL MOBILE (360px trở xuống) */
+        @media (max-width: 360px) {
+            .final{
+                padding:60px 12px 70px;
+            }
+            
+            .final h2{
+                font-size:1.7rem !important;
+                margin-bottom:25px !important;
+                padding: 0 8px;
+            }
+            
+            .final-cta{
+                padding:20px 35px !important;
+                font-size:1.2rem !important;
+                border-radius:30px !important;
+                max-width: 95%;
+            }
+            
+            .final-cta small{
+                font-size:0.9rem !important;
+            }
+        }
+
+        /* ACCESSIBILITY */
+        .btn-primary:focus,
+        .btn-outline:focus,
+        .nav-link:focus {
+            outline: 2px solid var(--ai-blue);
+            outline-offset: 3px;
+        }
+        
+        /* SMOOTH SCROLL - TỐI ƯU */
+        html {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Tắt smooth scroll trên mobile để tăng performance */
+        @media (max-width: 768px) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+        
+        /* FIX SCROLL ISSUE */
+        .section, .final, header {
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000;
+            will-change: transform;
+        }
+        
+        /* THÊM FIX CHO IOS */
+        @supports (-webkit-touch-callout: none) {
+            .section, .final, header {
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+        
+        /* OPTIMIZE FOR TOUCH DEVICES */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-primary:hover, .btn-outline:hover, .card:hover {
+                transform: none !important;
+            }
+            
+            .nav-link:hover {
+                background: transparent;
+            }
+        }
+
+        /* ====================
+           FOOTER STYLES
+           ==================== */
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            color: var(--text);
+            background: rgba(10, 14, 23, 0.95);
+            border-top: 1px solid rgba(0, 170, 255, 0.2);
+            font-size: 1rem;
+            position: relative;
+            z-index: 10;
+            margin-top: 0;
+            font-weight: 400;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        footer:hover {
+            opacity: 1;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .copyright {
+            color: var(--ai-blue);
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            footer {
+                padding: 20px 15px;
+                font-size: 0.95rem;
+            }
+            
+            .copyright {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            footer {
+                padding: 15px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .copyright {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Digital Ecosystem Background -->
+<div class="background-container">
+    <div class="bg-layer-1"></div>
+    <div class="bg-layer-2"></div>
+    <div class="bg-layer-3" id="ecosystem-layer"></div>
+    <div class="interactive-overlay" id="interactive-overlay"></div>
+</div>
+
+<!-- Overlay cho mobile menu -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Navigation Menu -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="#me" class="logo">
+            <i class="fas fa-cube"></i>
+            <span class="logo-text">H13 Digital</span>
+        </a>
+        
+        <button class="hamburger" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <ul class="nav-menu" id="nav-menu">
+            <li class="nav-item">
+                <a href="#me" class="nav-link active">
+                    <i class="fas fa-user"></i>
+                    Me
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#expertise" class="nav-link">
+                    <i class="fas fa-code"></i>
+                    Expertise
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#niches" class="nav-link">
+                    <i class="fas fa-layer-group"></i>
+                    Niches
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#talk" class="nav-link">
+                    <i class="fas fa-comments"></i>
+                    Talk
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<header id="me">
+    <div class="hero">
+        <h1>HIEP NGUYEN</h1>
+        
+        <div class="job-title">Senior Performance Marketing Architect</div>
+        
+        <p>I design & build complete autonomous growth systems — from paid acquisition strategy → real-time data pipeline → LTV prediction → self-optimizing funnels — that run 24/7 with zero manual spreadsheets.</p>
+        <small>Google Ads • Meta Ads • Social Systems • Brand Architecture • Full-stack Marketing OS</small>
+        
+        <div class="buttons">
+            <a href="#linkedin-profile" 
+               class="btn-outline"
+               aria-label="Connect with Hiep Nguyen on LinkedIn">
+                Connect on LinkedIn
+            </a>
+            <a href="#book-call" 
+               class="btn-primary"
+               aria-label="Direct message Hiep Nguyen if you need this kind of system">
+                DM me if you need this kind of system
+            </a>
+        </div>
+    </div>
+</header>
+
+<div class="section" id="expertise">
+    <h2 class="section-headline">I design, build & scale complete autonomous growth systems across three core domains</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Paid Acquisition Systems</h3>
+            <p>Full-funnel Google Ads + Meta Ads architecture that scales profitably while staying 100% policy-compliant in regulated verticals.</p>
+            <ul>
+                <li>Built & managed 8-figure annual ad spend portfolios</li>
+                <li>Created evergreen campaign structures that survive every policy update</li>
+                <li>Automated creative testing engine (500–1000 variants/week)</li>
+                <li>Real-time ROAS → LTV bridge (no more short-term metrics)</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Real-time Data & LTV Engine</h3>
+            <p>End-to-end pipeline that turns raw events into 180-day LTV predictions with ±6–8% accuracy.</p>
+            <ul>
+                <li>BigQuery → Segment → Looker Studio → automated decisions</li>
+                <li>Cohort health monitoring + instant alerts</li>
+                <li>Dynamic attribution model (data-driven, not last-click)</li>
+                <li>Zero Excel — everything lives in live dashboards</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Brand & Social Systems</h3>
+            <p>Complete brand operating system + always-on social engine that builds trust at scale.</p>
+            <ul>
+                <li>Brand strategy → visual identity → content OS</li>
+                <li>Evergreen content flywheels (organic reach still >30% of total traffic)</li>
+                <li>Community-led growth frameworks</li>
+                <li>Influencer & affiliate systems that run themselves</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section industries" id="niches">
+    <h2>I build growth systems that survive the toughest policy environments</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Regulated Finance</h3>
+            <p>Forex, Crypto, CFD, Prop Trading Firms<br>→ 100% policy-compliant structures that still scale to 7–8 figures/year</p>
+        </div>
+        <div class="card">
+            <h3>Healthcare & Nutraceuticals</h3>
+            <p>Evergreen funnels that pass Meta/Google review every single time</p>
+        </div>
+        <div class="card">
+            <h3>High-LTV B2B & SaaS</h3>
+            <p>180-day LTV prediction → paid acquisition becomes pure profit center</p>
+        </div>
+    </div>
+</div>
+
+<div class="final" id="talk">
+    <h2>Need someone who can design, build,<br>and run a complete growth system like this<br>for your company?</h2>
+    <a href="#final-cta" 
+       class="final-cta"
+       aria-label="Book a strategy call with Hiep Nguyen">
+        Book a Strategy Call
+        <small>I reply within a few hours</small>
+    </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-content">
+        <div class="copyright" id="copyright"></div>
+    </div>
+</footer>
+
+<script>
+// ====================
+// DIGITAL ECOSYSTEM BACKGROUND
+// ====================
+
+// 1. Create Growth Trees (Data Growth)
+function createGrowthTrees() {
+    if (window.innerWidth < 768) return;
+    
+    const container = document.getElementById('ecosystem-layer');
+    const treeCount = 8;
+    
+    for (let i = 0; i < treeCount; i++) {
+        const tree = document.createElement('div');
+        tree.className = 'growth-tree';
+        
+        // Position trees along the bottom
+        const left = Math.random() * 90 + 5; // 5% to 95%
+        const delay = Math.random() * 5;
+        const duration = Math.random() * 3 + 6; // 6-9 seconds
+        
+        tree.style.cssText = `
+            left: ${left}%;
+            animation-delay: ${delay}s;
+            animation-duration: ${duration}s;
+        `;
+        
+        container.appendChild(tree);
+    }
+}
+
+// 2. Create Data Rivers (Data Flow)
+function createDataRivers() {
+    if (window.innerWidth < 768) return;
+    
+    const container = document.getElementById('ecosystem-layer');
+    const riverCount = 5;
+    
+    for (let i = 0; i < riverCount; i++) {
+        const river = document.createElement('div');
+        river.className = 'data-river';
+        
+        const top = Math.random() * 70 + 15; // 15% to 85%
+        const delay = Math.random() * 8;
+        const duration = Math.random() * 5 + 15; // 15-20 seconds
+        const width = Math.random() * 60 + 80; // 80-140px
+        
+        river.style.cssText = `
+            top: ${top}%;
+            width: ${width}px;
+            animation-delay: ${delay}s;
+            animation-duration: ${duration}s;
+            background: linear-gradient(90deg, transparent, 
+                var(${Math.random() > 0.5 ? '--ecosystem-teal' : '--data-green'}), 
+                transparent);
+        `;
+        
+        container.appendChild(river);
+    }
+}
+
+// 3. Create AI Clouds (Processing)
+function createAIClouds() {
+    if (window.innerWidth < 768) return;
+    
+    const container = document.getElementById('ecosystem-layer');
+    const cloudCount = 4;
+    
+    for (let i = 0; i < cloudCount; i++) {
+        const cloud = document.createElement('div');
+        cloud.className = 'ai-cloud';
+        
+        const top = Math.random() * 50 + 10; // 10% to 60%
+        const delay = Math.random() * 15;
+        const duration = Math.random() * 10 + 20; // 20-30 seconds
+        const size = Math.random() * 40 + 100; // 100-140px
+        const opacity = Math.random() * 0.2 + 0.1;
+        
+        cloud.style.cssText = `
+            top: ${top}%;
+            width: ${size}px;
+            height: ${size * 0.3}px;
+            animation-delay: ${delay}s;
+            animation-duration: ${duration}s;
+            opacity: ${opacity};
+        `;
+        
+        container.appendChild(cloud);
+    }
+}
+
+// 4. Create Marketing Sun (Success/Results)
+function createMarketingSun() {
+    if (window.innerWidth < 768) return;
+    
+    const container = document.getElementById('ecosystem-layer');
+    const sun = document.createElement('div');
+    sun.className = 'marketing-sun';
+    
+    sun.style.cssText = `
+        top: 20%;
+        left: 80%;
+    `;
+    
+    container.appendChild(sun);
+}
+
+// 5. Create Ecosystem Particles
+function createEcosystemParticles() {
+    if (window.innerWidth < 768) return;
+    
+    const container = document.getElementById('ecosystem-layer');
+    const particleCount = 25;
+    
+    const particleColors = [
+        'var(--ai-blue)',
+        'var(--data-green)',
+        'var(--organic-green)',
+        'var(--ecosystem-teal)',
+        'var(--growth-orange)',
+        'var(--marketing-purple)'
+    ];
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'ecosystem-particle';
+        
+        const left = Math.random() * 100;
+        const delay = Math.random() * 15;
+        const duration = Math.random() * 10 + 15; // 15-25 seconds
+        const size = Math.random() * 3 + 3; // 3-6px
+        const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+        
+        particle.style.cssText = `
+            left: ${left}%;
+            width: ${size}px;
+            height: ${size}px;
+            background: ${color};
+            box-shadow: 0 0 ${size * 2}px ${color};
+            animation-delay: ${delay}s;
+            animation-duration: ${duration}s;
+        `;
+        
+        container.appendChild(particle);
+    }
+}
+
+// 6. Interactive Mouse Overlay
+function initInteractiveOverlay() {
+    if (window.innerWidth < 768) return;
+    
+    const overlay = document.getElementById('interactive-overlay');
+    
+    document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth) * 100;
+        const y = (e.clientY / window.innerHeight) * 100;
+        
+        overlay.style.setProperty('--mouse-x', `${x}%`);
+        overlay.style.setProperty('--mouse-y', `${y}%`);
+    });
+}
+
+// 7. Initialize Ecosystem Effects
+function initEcosystemEffects() {
+    createGrowthTrees();
+    createDataRivers();
+    createAIClouds();
+    createMarketingSun();
+    createEcosystemParticles();
+    initInteractiveOverlay();
+}
+
+// ====================
+// NAVIGATION FUNCTIONALITY
+// ====================
+document.addEventListener('DOMContentLoaded', function() {
+    // Kiểm tra performance và chỉ chạy hiệu ứng nếu device đủ mạnh
+    const isLowEndDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) &&
+                          (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+    
+    if (!isLowEndDevice && window.innerWidth >= 768) {
+        initEcosystemEffects();
+    } else {
+        // Trên device yếu hoặc mobile, tắt tất cả hiệu ứng nền phức tạp
+        document.getElementById('ecosystem-layer').style.display = 'none';
+        document.getElementById('interactive-overlay').style.display = 'none';
+    }
+    
+    const navbar = document.getElementById('navbar');
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    const overlay = document.getElementById('overlay');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const logo = document.querySelector('.logo');
+    
+    // Tính toán chiều cao navbar chính xác
+    function getNavbarHeight() {
+        return navbar.offsetHeight;
+    }
+    
+    // Toggle mobile menu
+    hamburger.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+        overlay.classList.toggle('active');
+        hamburger.innerHTML = navMenu.classList.contains('active') 
+            ? '<i class="fas fa-times"></i>' 
+            : '<i class="fas fa-bars"></i>';
+            
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // Close mobile menu when clicking overlay
+    overlay.addEventListener('click', function() {
+        navMenu.classList.remove('active');
+        overlay.classList.remove('active');
+        hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+        document.body.style.overflow = '';
+    });
+    
+    // Hàm xử lý scroll chung
+    function handleScrollToTarget(e, targetId) {
+        e.preventDefault();
+        
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+            // Đóng menu mobile
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            document.body.style.overflow = '';
+            
+            // Tính toán offset chính xác để session khít với menu bar
+            const navbarHeight = getNavbarHeight();
+            
+            // Lấy vị trí thực tế của target element
+            const targetRect = targetElement.getBoundingClientRect();
+            const targetPosition = window.pageYOffset + targetRect.top;
+            
+            // Tính toán offset để session bắt đầu ngay dưới navbar
+            const offsetPosition = targetPosition - navbarHeight + 5;
+            
+            // Scroll đến vị trí
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+            
+            // Update active class
+            navLinks.forEach(item => item.classList.remove('active'));
+            const correspondingNavLink = document.querySelector(`.nav-link[href="${targetId}"]`);
+            if (correspondingNavLink) {
+                correspondingNavLink.classList.add('active');
+            }
+            
+            // Cập nhật URL hash
+            history.pushState(null, null, targetId);
+        }
+    }
+    
+    // Xử lý click cho logo để điều hướng về #me
+    if (logo) {
+        logo.addEventListener('click', function(e) {
+            handleScrollToTarget(e, '#me');
+        });
+    }
+    
+    // Xử lý click cho nav links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            handleScrollToTarget(e, targetId);
+        });
+    });
+    
+    // Navbar scroll effect
+    let scrollTimeout;
+    let isScrolling = false;
+    
+    window.addEventListener('scroll', function() {
+        isScrolling = true;
+        
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            updateActiveNavLink();
+            isScrolling = false;
+        }, 50);
+    }, { passive: true });
+    
+    // Function to update active nav link based on scroll position
+    function updateActiveNavLink() {
+        if (isScrolling) return;
+        
+        const sections = document.querySelectorAll('header, .section, .final');
+        const navbarHeight = getNavbarHeight();
+        const scrollPos = window.scrollY + navbarHeight + 100;
+        
+        let currentActive = null;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                currentActive = sectionId;
+            }
+        });
+        
+        if (currentActive) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentActive}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    }
+    
+    // Xử lý hash URL khi page load
+    function handleInitialHash() {
+        if (window.location.hash) {
+            const targetElement = document.querySelector(window.location.hash);
+            if (targetElement) {
+                setTimeout(() => {
+                    const navbarHeight = getNavbarHeight();
+                    const targetRect = targetElement.getBoundingClientRect();
+                    const targetPosition = window.pageYOffset + targetRect.top;
+                    const offsetPosition = targetPosition - navbarHeight + 5;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'instant'
+                    });
+                }, 100);
+            }
+        }
+    }
+    
+    handleInitialHash();
+    
+    // JavaScript để xử lý click trên link giả định
+    const fakeLinks = document.querySelectorAll('a[href^="#"]:not([href="#"]):not(.nav-link):not(.logo)');
+    
+    fakeLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const href = this.getAttribute('href');
+            let message = '';
+            
+            switch(href) {
+                case '#linkedin-profile':
+                    message = 'This would link to your LinkedIn profile';
+                    break;
+                case '#book-call':
+                    message = 'This would open a booking/contact form';
+                    break;
+                case '#final-cta':
+                    message = 'This would link to your booking calendar';
+                    break;
+                default:
+                    message = 'Replace this with your actual link';
+            }
+            
+            alert(message + '\n\nReplace # with your actual URL in the HTML code.');
+            
+            console.log('Clicked fake link:', href, '- Replace with actual URL');
+        });
+    });
+
+    // ====================
+    // FOOTER YEAR UPDATE
+    // ====================
+    function updateFooterYear() {
+        const currentYear = new Date().getFullYear();
+        const displayYear = currentYear > 2025 ? currentYear : 2025;
+        document.getElementById('copyright').textContent = `© ${displayYear} by H13 Digital`;
+    }
+    
+    updateFooterYear();
+});
+
+// Optimize for mobile
+document.addEventListener('touchmove', function(e) {
+}, { passive: true });
+
+// Fix cho iOS
+if (/iPhone|iPad|iPod/.test(navigator.platform)) {
+    document.addEventListener('touchstart', function() {}, {passive: true});
+}
+
+window.addEventListener('load', function() {
+    if (window.location.hash) {
+        setTimeout(() => {
+            const targetElement = document.querySelector(window.location.hash);
+            if (targetElement) {
+                const navbar = document.getElementById('navbar');
+                const navbarHeight = navbar.offsetHeight;
+                const targetRect = targetElement.getBoundingClientRect();
+                const targetPosition = window.pageYOffset + targetRect.top;
+                const offsetPosition = targetPosition - navbarHeight + 5;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'instant'
+                });
+            }
+        }, 300);
+    }
+});
+
+// Performance optimization
+let lastScrollY = window.scrollY;
+let ticking = false;
+
+function updateOnScroll() {
+    ticking = false;
+}
+
+window.addEventListener('scroll', function() {
+    lastScrollY = window.scrollY;
+    
+    if (!ticking) {
+        requestAnimationFrame(updateOnScroll);
+        ticking = true;
+    }
+}, { passive: true });
+
+// Disable smooth scroll on mobile for better performance
+if ('scrollBehavior' in document.documentElement.style && window.innerWidth <= 768) {
+    document.documentElement.style.scrollBehavior = 'auto';
+}
+</script>
+
+</body>
+</html>
