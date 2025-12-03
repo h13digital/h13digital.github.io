@@ -6,33 +6,33 @@
     <title>H13 Digital – Senior Performance Marketing Architect</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
     <style>
         :root{
-            --bg:#0a0e17;
+            --bg:#000000;
             --card:rgba(20,25,40,0.88);
             --text:#e2e8f0;
             
-            /* Digital Ecosystem Colors */
-            --ai-blue:#00aaff;
-            --data-green:#00ffaa;
-            --marketing-purple:#c084fc;
-            --growth-orange:#ff9966;
-            --ecosystem-teal:#00cccc;
-            --organic-green:#66ff99;
-            
-            --blue-light:#4dc3ff;
-            --blue-dark:#0066ff;
-            --border:rgba(0,170,255,0.25);
+            /* Updated Colors - Changed from neon blue to regular blue */
+            --blue:#0066FF;          /* Regular Blue */
+            --white:#FFFFFF;         /* White */
+            --magenta:#FF00FF;       /* Magenta */
+            --light-blue:#4dc3ff;
+            --dark-blue:#0047AB;
+            --border:rgba(0, 102, 255, 0.25);
         }
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:clip}
+        body{
+            font-family:'Inter',sans-serif;
+            background:var(--bg);
+            color:var(--text);
+            overflow-x:clip;
+            min-height: 100vh;
+        }
         
         /* ====================
-           DIGITAL ECOSYSTEM BACKGROUND
+           PIXEL TEXT BACKGROUND
            ==================== */
-        .background-container {
+        .pixel-background {
             position: fixed;
             top: 0;
             left: 0;
@@ -40,234 +40,31 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
+            background-color: #000000;
         }
         
-        /* Layer 1: Base Ecosystem Gradient */
-        .bg-layer-1 {
+        #pixel-canvas {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 15% 85%, rgba(0, 204, 204, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 85% 15%, rgba(102, 255, 153, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(0, 170, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 90% 60%, rgba(192, 132, 252, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 10% 40%, rgba(255, 153, 102, 0.1) 0%, transparent 40%),
-                linear-gradient(135deg, #0a0e17 0%, #0d1425 30%, #0a0e17 100%);
-            opacity: 0.9;
-        }
-        
-        /* Layer 2: Organic Patterns */
-        .bg-layer-2 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                url("data:image/svg+xml,%3Csvg width='300' height='300' viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M150 50c27.614 0 50-22.386 50-50 0 27.614 22.386 50 50 50-27.614 0-50 22.386-50 50 0-27.614-22.386-50-50-50zM50 150c27.614 0 50-22.386 50-50 0 27.614 22.386 50 50 50-27.614 0-50 22.386-50 50 0-27.614-22.386-50-50-50zM250 150c27.614 0 50-22.386 50-50 0 27.614 22.386 50 50 50-27.614 0-50 22.386-50 50 0-27.614-22.386-50-50-50z' fill='%2300ffaa' fill-opacity='0.03'/%3E%3C/svg%3E"),
-                url("data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 50c27.614 0 50-22.386 50-50 0 27.614 22.386 50 50 50-27.614 0-50 22.386-50 50 0-27.614-22.386-50-50-50zM50 100c27.614 0 50-22.386 50-50 0 27.614 22.386 50 50 50-27.614 0-50 22.386-50 50 0-27.614-22.386-50-50-50zM150 100c27.614 0 50-22.386 50-50 0 27.614 22.386 50 50 50-27.614 0-50 22.386-50 50 0-27.614-22.386-50-50-50z' fill='%2300aaff' fill-opacity='0.02'/%3E%3C/svg%3E");
-            background-size: 400px 400px, 300px 300px;
-            opacity: 0.3;
-            animation: ecosystemFloat 180s linear infinite;
-        }
-        
-        @keyframes ecosystemFloat {
-            0% { background-position: 0% 0%, 200px 100px; }
-            100% { background-position: 400px 400px, -200px -100px; }
-        }
-        
-        /* Layer 3: Digital Growth Elements */
-        .bg-layer-3 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.4;
-        }
-        
-        /* Growth Trees - Representing Data Growth */
-        .growth-tree {
-            position: absolute;
-            width: 3px;
-            height: 60px;
-            background: linear-gradient(to top, transparent, var(--organic-green));
-            bottom: 0;
-            animation: treeGrow 8s ease-in-out infinite;
-        }
-        
-        .growth-tree::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 40px;
-            background: radial-gradient(circle, var(--data-green) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0.3;
-        }
-        
-        .growth-tree::after {
-            content: '';
-            position: absolute;
-            top: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(circle, var(--growth-orange) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0.4;
-        }
-        
-        @keyframes treeGrow {
-            0%, 100% { 
-                height: 40px;
-                opacity: 0.3;
-            }
-            50% { 
-                height: 80px;
-                opacity: 0.6;
-            }
-        }
-        
-        /* Data Streams - Like rivers in ecosystem */
-        .data-river {
-            position: absolute;
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--ecosystem-teal), transparent);
-            animation: riverFlow 10s linear infinite;
-            border-radius: 2px;
-        }
-        
-        @keyframes riverFlow {
-            0% { 
-                transform: translateX(-100px);
-                opacity: 0.1;
-            }
-            10% { opacity: 0.6; }
-            90% { opacity: 0.6; }
-            100% { 
-                transform: translateX(calc(100vw + 100px));
-                opacity: 0.1;
-            }
-        }
-        
-        /* AI Clouds - Processing elements */
-        .ai-cloud {
-            position: absolute;
-            width: 120px;
-            height: 40px;
-            background: radial-gradient(circle at 30px 20px, rgba(0, 170, 255, 0.3) 0%, transparent 50%),
-                       radial-gradient(circle at 70px 15px, rgba(0, 170, 255, 0.2) 0%, transparent 50%),
-                       radial-gradient(circle at 50px 30px, rgba(0, 170, 255, 0.25) 0%, transparent 50%);
-            border-radius: 50%;
-            filter: blur(5px);
-            animation: cloudFloat 25s linear infinite;
-        }
-        
-        @keyframes cloudFloat {
-            0% { 
-                transform: translateX(-150px);
-                opacity: 0.2;
-            }
-            50% { opacity: 0.4; }
-            100% { 
-                transform: translateX(calc(100vw + 150px));
-                opacity: 0.2;
-            }
-        }
-        
-        /* Marketing Sun - Central success element */
-        .marketing-sun {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, var(--growth-orange) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0.15;
-            filter: blur(10px);
-            animation: sunPulse 15s ease-in-out infinite;
-        }
-        
-        @keyframes sunPulse {
-            0%, 100% { 
-                transform: scale(1);
-                opacity: 0.1;
-            }
-            50% { 
-                transform: scale(1.2);
-                opacity: 0.2;
-            }
-        }
-        
-        /* Ecosystem Particles */
-        .ecosystem-particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            animation: particleFloat 20s linear infinite;
-        }
-        
-        @keyframes particleFloat {
-            0% { 
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.7; }
-            100% { 
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        /* Layer 4: Interactive Ecosystem Overlay */
-        .interactive-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                rgba(0, 204, 204, 0.1) 0%, 
-                rgba(102, 255, 153, 0.05) 20%, 
-                rgba(0, 170, 255, 0.03) 40%, 
-                transparent 60%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-        }
-        
-        body:hover .interactive-overlay {
+            z-index: 0;
             opacity: 1;
         }
         
-        /* Mobile optimization */
+        /* Ensure canvas is visible on mobile */
         @media (max-width: 768px) {
-            .bg-layer-2 {
-                animation: none;
-                opacity: 0.15;
+            .pixel-background {
+                display: block;
             }
-            
-            .growth-tree, .data-river, .ai-cloud, .marketing-sun, .ecosystem-particle {
-                display: none;
-            }
-            
-            .interactive-overlay {
-                display: none;
+            #pixel-canvas {
+                display: block;
             }
         }
 
         /* ====================
-           NAVIGATION MENU - PERFORMANCE OPTIMIZED
+           NAVIGATION MENU
            ==================== */
         .navbar {
             position: fixed;
@@ -278,7 +75,7 @@
             padding: 15px 40px;
             transition: all 0.4s ease;
             background: rgba(10, 14, 23, 0.92);
-            border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+            border-bottom: 1px solid rgba(0, 102, 255, 0.2);
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             transform: translateZ(0);
@@ -290,7 +87,7 @@
             padding: 12px 40px;
             background: rgba(10, 14, 23, 0.98);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-            border-bottom: 1px solid rgba(0, 170, 255, 0.3);
+            border-bottom: 1px solid rgba(0, 102, 255, 0.3);
         }
         
         .nav-container {
@@ -304,7 +101,7 @@
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
-            color: var(--ai-blue);
+            color: var(--blue);
             text-decoration: none;
             letter-spacing: -0.5px;
             display: flex;
@@ -312,20 +109,20 @@
             gap: 10px;
             padding: 8px 16px;
             border-radius: 12px;
-            background: rgba(0, 170, 255, 0.08);
-            border: 1px solid rgba(0, 170, 255, 0.2);
+            background: rgba(0, 102, 255, 0.08);
+            border: 1px solid rgba(0, 102, 255, 0.2);
             transition: all 0.3s ease;
         }
         
         .logo:hover {
-            background: rgba(0, 170, 255, 0.12);
-            border-color: var(--ai-blue);
+            background: rgba(0, 102, 255, 0.12);
+            border-color: var(--blue);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 170, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 102, 255, 0.2);
         }
         
         .logo i {
-            color: var(--ai-blue);
+            color: var(--blue);
             font-size: 1.6rem;
             animation: pulse 2s infinite;
         }
@@ -336,7 +133,7 @@
         }
         
         .logo-text {
-            background: linear-gradient(90deg, var(--ai-blue), var(--blue-light));
+            background: linear-gradient(90deg, var(--blue), var(--light-blue));
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -374,13 +171,13 @@
         }
         
         .nav-link:hover {
-            color: var(--ai-blue);
-            background: rgba(0, 170, 255, 0.05);
+            color: var(--blue);
+            background: rgba(0, 102, 255, 0.05);
         }
         
         .nav-link.active {
-            color: var(--ai-blue);
-            background: rgba(0, 170, 255, 0.1);
+            color: var(--blue);
+            background: rgba(0, 102, 255, 0.1);
         }
         
         .nav-link.active::before {
@@ -391,7 +188,7 @@
             transform: translateY(-50%);
             width: 3px;
             height: 60%;
-            background: linear-gradient(to bottom, var(--ai-blue), var(--blue-dark));
+            background: linear-gradient(to bottom, var(--blue), var(--dark-blue));
             border-radius: 0 3px 3px 0;
         }
         
@@ -399,21 +196,21 @@
             display: none;
             cursor: pointer;
             font-size: 1.8rem;
-            color: var(--ai-blue);
-            background: rgba(0, 170, 255, 0.1);
-            border: 1px solid rgba(0, 170, 255, 0.3);
+            color: var(--blue);
+            background: rgba(0, 102, 255, 0.1);
+            border: 1px solid rgba(0, 102, 255, 0.3);
             border-radius: 8px;
             padding: 8px 12px;
             transition: all 0.3s ease;
         }
         
         .hamburger:hover {
-            background: rgba(0, 170, 255, 0.2);
+            background: rgba(0, 102, 255, 0.2);
             transform: rotate(90deg);
         }
         
         /* ====================
-           MOBILE MENU STYLES & PERFORMANCE OPTIMIZATION
+           MOBILE MENU STYLES
            ==================== */
         @media (max-width: 1024px) {
             .navbar {
@@ -455,8 +252,8 @@
                 padding-top: 100px;
                 padding-left: 30px;
                 transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-                box-shadow: -5px 0 40px rgba(0, 170, 255, 0.1);
-                border-left: 1px solid rgba(0, 170, 255, 0.3);
+                box-shadow: -5px 0 40px rgba(0, 102, 255, 0.1);
+                border-left: 1px solid rgba(0, 102, 255, 0.3);
                 gap: 20px;
                 transform: translateZ(0);
                 will-change: transform;
@@ -476,12 +273,12 @@
                 padding: 12px 20px;
                 display: flex;
                 width: 100%;
-                border: 1px solid rgba(0, 170, 255, 0.1);
+                border: 1px solid rgba(0, 102, 255, 0.1);
                 margin-bottom: 5px;
             }
             
             .nav-link.active {
-                border-color: rgba(0, 170, 255, 0.3);
+                border-color: rgba(0, 102, 255, 0.3);
             }
             
             .overlay {
@@ -499,7 +296,7 @@
                 display: block;
             }
             
-            /* TỐI ƯU QUAN TRỌNG: THAY THẾ BACKDROP-FILTER BẰNG SOLID BACKGROUND */
+            /* Optimize for mobile */
             .navbar {
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
@@ -515,7 +312,6 @@
                 transition: none !important;
             }
             
-            /* Tối ưu cho các section */
             .section, .final, header {
                 transform: none !important;
                 -webkit-transform: none !important;
@@ -524,14 +320,12 @@
                 will-change: auto !important;
             }
             
-            /* Tối ưu cho các nút */
             .btn-primary, .btn-outline, .final-cta {
                 transform: none !important;
                 -webkit-transform: none !important;
                 transition: none !important;
             }
             
-            /* Tối ưu cho text */
             .hero h1, .section-headline, .industries h2, .final h2 {
                 transform: none !important;
                 -webkit-transform: none !important;
@@ -571,18 +365,7 @@
             }
         }
 
-        /* FIX: Cho phép bôi đen text trong hero */
-        header, .hero, .hero h1, .hero .job-title, .hero p, .hero small {
-            user-select: text !important;
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
-        }
-
-        /* FIX 1: THÊM KHOẢNG CÁCH CHO #me ĐỂ KHÔNG BỊ SÁT MENU */
-        /* Navbar cao khoảng 70px trên desktop và ~60px trên mobile */
-        
-        /* HERO SECTION - TỐI ƯU CHO MOBILE */
+        /* HERO SECTION */
         header{
             min-height:100vh;
             display:flex;
@@ -594,16 +377,14 @@
             overflow:hidden;
             transform: translateZ(0);
             -webkit-transform: translateZ(0);
-            /* Thêm padding-top để tránh bị navbar che */
             padding-top: 120px !important;
         }
 
-        /* TÊN CHÍNH */
         .hero h1{
             font-size:4rem;
             font-weight:900;
             letter-spacing:-2px;
-            background:linear-gradient(90deg, var(--ai-blue), var(--ecosystem-teal));
+            background:linear-gradient(90deg, var(--blue), #0080FF);
             -webkit-background-clip:text;
             background-clip:text;
             -webkit-text-fill-color:transparent;
@@ -612,11 +393,10 @@
             transform: translateZ(0);
         }
 
-        /* DÒNG TIÊU ĐỀ CÔNG VIỆC */
         .hero .job-title{
             font-size:1.8rem;
             font-weight:600;
-            color:var(--ai-blue);
+            color:var(--blue);
             letter-spacing:1px;
             margin-bottom:15px;
             text-transform:uppercase;
@@ -624,7 +404,6 @@
             line-height:1.2;
         }
 
-        /* MÔ TẢ CHÍNH */
         .hero p{
             font-size:1.8rem;
             max-width:1000px;
@@ -634,7 +413,6 @@
             padding:0 15px;
         }
 
-        /* TAGLINE */
         .hero small{
             display:block;
             margin:20px 0 0;
@@ -644,7 +422,6 @@
             line-height:1.4;
         }
 
-        /* BUTTONS */
         .buttons{
             display:flex;
             gap:20px;
@@ -655,16 +432,15 @@
             padding-bottom: 20px;
         }
         
-        /* NÚT CTA - TỐI ƯU BOX-SHADOW */
         .btn-primary{
-            background:linear-gradient(135deg, var(--ai-blue), var(--growth-orange));
+            background:linear-gradient(135deg, var(--blue), var(--magenta));
             color:#fff;
             padding:18px 40px;
             font-size:1.3rem;
             font-weight:700;
             border-radius:18px;
             text-decoration:none;
-            box-shadow:0 12px 30px rgba(0,102,255,.5);
+            box-shadow:0 12px 30px rgba(0, 102, 255,.5);
             transition:.3s;
             border:none;
             cursor:pointer;
@@ -679,14 +455,14 @@
         }
         .btn-primary:hover{
             transform:translateY(-6px);
-            box-shadow:0 20px 40px rgba(0,102,255,.7);
+            box-shadow:0 20px 40px rgba(0, 102, 255,.7);
             text-decoration:none;
         }
         
         .btn-outline{
             background:transparent;
-            color:var(--ai-blue);
-            border:2px solid var(--ai-blue);
+            color:var(--blue);
+            border:2px solid var(--blue);
             padding:16px 38px;
             font-size:1.3rem;
             border-radius:18px;
@@ -702,36 +478,27 @@
             -webkit-transform: translateZ(0);
         }
         .btn-outline:hover{
-            background:rgba(0,170,255,0.1);
+            background:rgba(0, 102, 255,0.1);
             transform:translateY(-6px);
             text-decoration:none;
         }
 
-        /* ====================
-           CHỈNH CHIỀU CAO HERO SESSION
-           ==================== */
+        /* Responsive Hero */
         @media (min-width: 769px) {
             header {
                 min-height: 100vh;
                 height: 100vh;
                 padding: 20px 20px 30px;
-                /* Đã có padding-top từ style chung */
             }
         }
 
-        /* TABLET (481px - 768px) */
         @media (max-width: 768px) and (min-width: 481px) {
             header{
                 padding:20px 15px 15px !important;
                 min-height: 70vh !important;
                 justify-content: flex-start;
                 align-items: flex-start;
-                /* Tăng padding-top để tránh navbar */
                 padding-top: 20vh !important;
-            }
-            
-            .hero{
-                padding-top: 20px;
             }
             
             .hero h1{
@@ -763,15 +530,14 @@
             .btn-primary, .btn-outline{
                 max-width:300px !important;
                 padding:15px 30px !important;
-                box-shadow:0 6px 15px rgba(0,102,255,.4) !important;
+                box-shadow:0 6px 15px rgba(0, 102, 255,.4) !important;
             }
             
             .btn-primary:hover, .btn-outline:hover{
-                box-shadow:0 10px 20px rgba(0,102,255,.5) !important;
+                box-shadow:0 10px 20px rgba(0, 102, 255,.5) !important;
             }
         }
 
-        /* MOBILE (480px trở xuống) */
         @media (max-width: 480px) {
             header{
                 padding:15px 15px 20px !important;
@@ -779,19 +545,8 @@
                 justify-content: flex-start;
                 align-items: center;
                 display: flex !important;
-                /* Tăng padding-top để tránh navbar mobile */
                 padding-top: 18vh !important;
                 margin-bottom: 20px;
-            }
-            
-            .hero{
-                padding-top: 10px;
-                text-align: center;
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
             }
             
             .hero h1{
@@ -841,21 +596,19 @@
                 font-size:1.05rem !important;
                 min-width:auto !important;
                 border-radius:16px !important;
-                box-shadow:0 4px 10px rgba(0,102,255,.3) !important;
+                box-shadow:0 4px 10px rgba(0, 102, 255,.3) !important;
             }
             
             .btn-primary:hover, .btn-outline:hover{
                 transform:translateY(-2px) !important;
-                box-shadow:0 6px 15px rgba(0,102,255,.4) !important;
+                box-shadow:0 6px 15px rgba(0, 102, 255,.4) !important;
             }
         }
 
-        /* SMALL MOBILE (360px trở xuống) */
         @media (max-width: 360px) {
             header{
                 padding:12px 12px 15px !important;
                 min-height: 55vh !important;
-                /* Tăng padding-top cho small mobile */
                 padding-top: 15vh !important;
                 margin-bottom: 15px;
             }
@@ -893,14 +646,12 @@
             }
         }
 
-        /* ====================
-           SERVICES SECTION HEADLINE
-           ==================== */
+        /* SERVICES SECTION */
         .section-headline {
             font-size: 3rem;
             text-align: center;
             margin-bottom: 60px;
-            background: linear-gradient(90deg, var(--ai-blue), var(--ecosystem-teal));
+            background: linear-gradient(90deg, var(--blue), #0080FF);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -927,7 +678,6 @@
             }
         }
 
-        /* PHẦN CÒN LẠI GIỮ NGUYÊN */
         .section{
             padding:100px 30px;
             max-width:1500px;
@@ -956,14 +706,13 @@
             transition: transform 0.4s ease, box-shadow 0.4s ease;
             transform: translateZ(0);
             -webkit-transform: translateZ(0);
-            border: 1px solid rgba(0, 170, 255, 0.2);
+            border: 1px solid rgba(0, 102, 255, 0.2);
         }
         
-        /* FIX: Điều chỉnh font size h3 trong card service session bằng với industry session */
         .card h3{
             font-size:1.6rem;
             margin-bottom:28px;
-            background:linear-gradient(90deg, var(--ai-blue), var(--growth-orange));
+            background:linear-gradient(90deg, var(--blue), var(--magenta));
             -webkit-background-clip:text;
             background-clip:text;
             -webkit-text-fill-color:transparent;
@@ -989,7 +738,7 @@
             content:"▸";
             position:absolute;
             left:0;
-            color:var(--ai-blue);
+            color:var(--blue);
             font-weight:bold;
             font-size:1.6rem;
         }
@@ -998,7 +747,7 @@
             font-size:3rem;
             text-align:center;
             margin-bottom:60px;
-            background:linear-gradient(90deg, var(--ai-blue), var(--ecosystem-teal));
+            background:linear-gradient(90deg, var(--blue), #0080FF);
             -webkit-background-clip:text;
             background-clip:text;
             -webkit-text-fill-color:transparent;
@@ -1011,7 +760,6 @@
             padding:40px 25px;
         }
         
-        /* FIX: Giữ nguyên font size h3 trong card industry session */
         .industries .card h3{
             font-size:1.6rem;
             margin-bottom:18px;
@@ -1025,17 +773,14 @@
             font-size:1.25rem;
         }
 
-        /* ====================
-           FIX 2: FINAL CALL-TO-ACTION (#talk) - FULL MÀN HÌNH TRÊN MOBILE
-           ==================== */
+        /* FINAL CALL-TO-ACTION */
         .final{
             text-align:center;
             padding:120px 20px 140px;
             background:linear-gradient(135deg,rgba(10,14,23,.99),rgba(20,30,50,.99));
             transform: translateZ(0);
             -webkit-transform: translateZ(0);
-            border-top: 1px solid rgba(0, 170, 255, 0.1);
-            /* Thêm để full màn hình trên mobile */
+            border-top: 1px solid rgba(0, 102, 255, 0.1);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -1052,14 +797,14 @@
         
         .final-cta{
             display:inline-block;
-            background:linear-gradient(135deg, var(--ai-blue), var(--growth-orange));
+            background:linear-gradient(135deg, var(--blue), var(--magenta));
             color:#fff;
             padding:34px 90px;
             border-radius:50px;
             text-decoration:none;
             font-size:1.8rem;
             font-weight:900;
-            box-shadow:0 30px 80px rgba(0,102,255,.6);
+            box-shadow:0 30px 80px rgba(0, 102, 255,.6);
             transition:all .4s;
             line-height:1.4;
             transform: translateZ(0);
@@ -1080,7 +825,7 @@
             color: #fff;
         }
 
-        /* RESPONSIVE CHO CÁC PHẦN KHÁC */
+        /* RESPONSIVE */
         @media (max-width: 768px){
             .section{
                 padding:70px 20px;
@@ -1127,7 +872,6 @@
                 font-size:1.15rem;
             }
             
-            /* FIX: #talk full màn hình trên tablet */
             .final{
                 padding:90px 15px !important;
                 min-height: 100vh !important;
@@ -1148,7 +892,7 @@
                 padding:28px 60px;
                 font-size:1.5rem;
                 border-radius:40px;
-                box-shadow:0 10px 30px rgba(0,102,255,.4) !important;
+                box-shadow:0 10px 30px rgba(0, 102, 255,.4) !important;
             }
             
             .final-cta small{
@@ -1156,7 +900,6 @@
             }
         }
 
-        /* FIX FINAL CTA (#talk) ON MOBILE (480px trở xuống) */
         @media (max-width: 480px) {
             .final{
                 padding:60px 15px !important;
@@ -1179,7 +922,7 @@
                 font-size:1.3rem !important;
                 border-radius:35px !important;
                 max-width: 90%;
-                box-shadow:0 8px 25px rgba(0,102,255,.35) !important;
+                box-shadow:0 8px 25px rgba(0, 102, 255,.35) !important;
             }
             
             .final-cta small{
@@ -1188,7 +931,6 @@
             }
         }
 
-        /* FIX FINAL CTA (#talk) ON SMALL MOBILE (360px trở xuống) */
         @media (max-width: 360px) {
             .final{
                 padding:50px 12px !important;
@@ -1217,63 +959,13 @@
             }
         }
 
-        /* ACCESSIBILITY */
-        .btn-primary:focus,
-        .btn-outline:focus,
-        .nav-link:focus {
-            outline: 2px solid var(--ai-blue);
-            outline-offset: 3px;
-        }
-        
-        /* SMOOTH SCROLL - TỐI ƯU */
-        html {
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        /* Tắt smooth scroll trên mobile để tăng performance */
-        @media (max-width: 768px) {
-            html {
-                scroll-behavior: auto;
-            }
-        }
-        
-        /* FIX SCROLL ISSUE */
-        .section, .final, header {
-            -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-            backface-visibility: hidden;
-            perspective: 1000;
-            will-change: transform;
-        }
-        
-        /* THÊM FIX CHO IOS */
-        @supports (-webkit-touch-callout: none) {
-            .section, .final, header {
-                -webkit-overflow-scrolling: touch;
-            }
-        }
-        
-        /* OPTIMIZE FOR TOUCH DEVICES */
-        @media (hover: none) and (pointer: coarse) {
-            .btn-primary:hover, .btn-outline:hover, .card:hover {
-                transform: none !important;
-            }
-            
-            .nav-link:hover {
-                background: transparent;
-            }
-        }
-
-        /* ====================
-           FOOTER STYLES
-           ==================== */
+        /* FOOTER */
         footer {
             text-align: center;
             padding: 25px 20px;
             color: var(--text);
             background: rgba(10, 14, 23, 0.95);
-            border-top: 1px solid rgba(0, 170, 255, 0.2);
+            border-top: 1px solid rgba(0, 102, 255, 0.2);
             font-size: 1rem;
             position: relative;
             z-index: 10;
@@ -1293,7 +985,7 @@
         }
 
         .copyright {
-            color: var(--ai-blue);
+            color: var(--blue);
             font-size: 1.1rem;
             letter-spacing: 0.5px;
         }
@@ -1319,19 +1011,36 @@
                 font-size: 0.95rem;
             }
         }
+
+        /* ACCESSIBILITY */
+        .btn-primary:focus,
+        .btn-outline:focus,
+        .nav-link:focus {
+            outline: 2px solid var(--blue);
+            outline-offset: 3px;
+        }
+        
+        /* SMOOTH SCROLL */
+        html {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        @media (max-width: 768px) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
     </style>
 </head>
 <body>
 
-<!-- Digital Ecosystem Background -->
-<div class="background-container">
-    <div class="bg-layer-1"></div>
-    <div class="bg-layer-2"></div>
-    <div class="bg-layer-3" id="ecosystem-layer"></div>
-    <div class="interactive-overlay" id="interactive-overlay"></div>
+<!-- Pixel Text Background -->
+<div class="pixel-background" id="pixel-background-area">
+    <canvas id="pixel-canvas" class="webgl-canvas"></canvas>
 </div>
 
-<!-- Overlay cho mobile menu -->
+<!-- Overlay for mobile menu -->
 <div class="overlay" id="overlay"></div>
 
 <!-- Navigation Menu -->
@@ -1472,192 +1181,339 @@
 
 <script>
 // ====================
-// DIGITAL ECOSYSTEM BACKGROUND
+// PIXEL TEXT BACKGROUND
+// Optimized for both Desktop and Mobile
 // ====================
 
-// 1. Create Growth Trees (Data Growth)
-function createGrowthTrees() {
-    if (window.innerWidth < 768) return;
-    
-    const container = document.getElementById('ecosystem-layer');
-    const treeCount = 8;
-    
-    for (let i = 0; i < treeCount; i++) {
-        const tree = document.createElement('div');
-        tree.className = 'growth-tree';
-        
-        // Position trees along the bottom
-        const left = Math.random() * 90 + 5; // 5% to 95%
-        const delay = Math.random() * 5;
-        const duration = Math.random() * 3 + 6; // 6-9 seconds
-        
-        tree.style.cssText = `
-            left: ${left}%;
-            animation-delay: ${delay}s;
-            animation-duration: ${duration}s;
-        `;
-        
-        container.appendChild(tree);
+const canvas = document.getElementById('pixel-canvas');
+const container = document.getElementById('pixel-background-area');
+const ctx = canvas.getContext('2d');
+let dots = [];
+let allShapeCoords = [];
+let currentShapeIndex = 0;
+
+// --- CONFIGURATION PARAMETERS ---
+const TARGET_WORDS = ['CLV', 'AI', 'AUTOMATION', 'ROI', 'DATA', 'GROWTH', 'PERFORMANCE'];
+
+// Parameters based on device type
+let FONT_SIZE, PIXEL_DENSITY, dotSize, SCALING_FACTORS, SCATTER_INIT_PUSH, INTERACTION_RADIUS_SQ, 
+    MOUSE_REPEL_FORCE, WIND_FORCE, SCATTER_FRICTION, MORPH_SPRING, MORPH_FRICTION;
+
+// Color palette - Updated to match the blue color scheme
+const BLUE_RGB = '0, 102, 255';     // Changed from '0, 255, 255' to regular blue
+const WHITE_RGB = '255, 255, 255';
+const MAGENTA_RGB = '255, 0, 255'; 
+const COLOR_PALETTE = [BLUE_RGB, WHITE_RGB, MAGENTA_RGB];
+
+let currentScale = 1.0; 
+let currentRandomCenter = { x: 0, y: 0 }; 
+
+// SYSTEM STATES
+const STATE_SCATTERED = 'SCATTERED'; 
+const STATE_MORPHING = 'MORPHING'; 
+const STATE_SHAPE_DISPLAY = 'SHAPE_DISPLAY'; 
+let currentState = STATE_SCATTERED; 
+
+let mouse = { x: -1000, y: -1000 }; 
+
+// Initialize parameters based on device
+function initParameters() {
+    if (window.innerWidth < 768) {
+        // Mobile settings - optimized for performance
+        FONT_SIZE = 50;
+        PIXEL_DENSITY = 8;
+        dotSize = 3;
+        SCALING_FACTORS = [0.8, 1.0, 1.2]; // Smaller scaling for mobile
+        SCATTER_INIT_PUSH = 8;
+        INTERACTION_RADIUS_SQ = Math.pow(80, 2);
+        MOUSE_REPEL_FORCE = 0.4;
+        WIND_FORCE = 0.04;
+        SCATTER_FRICTION = 0.97;
+        MORPH_SPRING = 0.025;
+        MORPH_FRICTION = 0.88;
+    } else {
+        // Desktop settings
+        FONT_SIZE = 70;
+        PIXEL_DENSITY = 5;
+        dotSize = 4;
+        SCALING_FACTORS = [1.0, 1.5, 2.0]; // 1X, 1.5X, 2X
+        SCATTER_INIT_PUSH = 10;
+        INTERACTION_RADIUS_SQ = Math.pow(120, 2);
+        MOUSE_REPEL_FORCE = 0.5;
+        WIND_FORCE = 0.05;
+        SCATTER_FRICTION = 0.98;
+        MORPH_SPRING = 0.03;
+        MORPH_FRICTION = 0.9;
     }
 }
 
-// 2. Create Data Rivers (Data Flow)
-function createDataRivers() {
-    if (window.innerWidth < 768) return;
+// --- TEXT-TO-PIXEL LOGIC (Using Scaling) ---
+function generateTextCoords(text, fontSize, density, scale) {
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
     
-    const container = document.getElementById('ecosystem-layer');
-    const riverCount = 5;
+    const canvasSize = 800 * scale; 
+    tempCanvas.width = canvasSize;
+    tempCanvas.height = canvasSize / 5; 
     
-    for (let i = 0; i < riverCount; i++) {
-        const river = document.createElement('div');
-        river.className = 'data-river';
+    const scaledFontSize = fontSize * scale;
+
+    tempCtx.fillStyle = 'white';
+    tempCtx.font = `bold ${scaledFontSize}px 'Inter', Arial, sans-serif`;
+    tempCtx.textAlign = 'center';
+    tempCtx.textBaseline = 'middle';
+    tempCtx.fillText(text, tempCanvas.width / 2, tempCanvas.height / 2);
+
+    const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+    const data = imageData.data;
+    const coords = [];
+
+    const offsetX = tempCanvas.width / 2;
+    const offsetY = tempCanvas.height / 2;
+
+    for (let y = 0; y < tempCanvas.height; y += density) {
+        for (let x = 0; x < tempCanvas.width; x += density) {
+            const index = (y * tempCanvas.width + x) * 4;
+            if (data[index] > 0) { 
+                coords.push({ x: x - offsetX, y: y - offsetY });
+            }
+        }
+    }
+    return coords;
+}
+
+// --- Dot Class Definition ---
+class Dot {
+    constructor(x, y, rgbColor, initialIndex) {
+        this.x = x;
+        this.y = y;
+        this.dx = 0; 
+        this.dy = 0;
+        this.baseRGB = rgbColor; 
+        this.color = `rgba(${this.baseRGB}, 0.5)`; 
         
-        const top = Math.random() * 70 + 15; // 15% to 85%
-        const delay = Math.random() * 8;
-        const duration = Math.random() * 5 + 15; // 15-20 seconds
-        const width = Math.random() * 60 + 80; // 80-140px
+        this.targetX = x; 
+        this.targetY = y;
+        this.initialIndex = initialIndex;
+    }
+
+    draw() {
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, dotSize, dotSize); 
         
-        river.style.cssText = `
-            top: ${top}%;
-            width: ${width}px;
-            animation-delay: ${delay}s;
-            animation-duration: ${duration}s;
-            background: linear-gradient(90deg, transparent, 
-                var(${Math.random() > 0.5 ? '--ecosystem-teal' : '--data-green'}), 
-                transparent);
-        `;
+        // Add subtle glow for brighter dots
+        if (this.color.includes('1.0') || this.color.includes('0.9') || this.color.includes('0.8')) {
+            ctx.shadowColor = this.color;
+            ctx.shadowBlur = 5;
+            ctx.fillRect(this.x, this.y, dotSize, dotSize);
+            ctx.shadowBlur = 0;
+        }
+    }
+
+    setTarget(coords, centerX, centerY) {
+        const coord = coords[this.initialIndex % coords.length];
+        this.targetX = centerX + coord.x;
+        this.targetY = centerY + coord.y;
+    }
+
+    applyScatterPush() {
+        this.dx += (Math.random() - 0.5) * SCATTER_INIT_PUSH;
+        this.dy += (Math.random() - 0.5) * SCATTER_INIT_PUSH;
+    }
+
+    update() {
+        let currentFriction = MORPH_FRICTION;
         
-        container.appendChild(river);
+        // 1. BASE FORCE (Pull towards text or Wind)
+        if (currentState === STATE_MORPHING || currentState === STATE_SHAPE_DISPLAY) {
+            this.dx += (this.targetX - this.x) * MORPH_SPRING;
+            this.dy += (this.targetY - this.y) * MORPH_SPRING;
+            currentFriction = MORPH_FRICTION;
+        } else { // STATE_SCATTERED
+            this.dx += (Math.random() - 0.5) * WIND_FORCE;
+            this.dy += (Math.random() - 0.5) * WIND_FORCE;
+            currentFriction = SCATTER_FRICTION;
+        }
+
+        // 2. STRONG REACTION TO MOUSE/TOUCH
+        const dx_mouse = this.x - mouse.x;
+        const dy_mouse = this.y - mouse.y;
+        const distSq = dx_mouse * dx_mouse + dy_mouse * dy_mouse;
+
+        if (distSq < INTERACTION_RADIUS_SQ) {
+            const forceFactor = (INTERACTION_RADIUS_SQ - distSq) / INTERACTION_RADIUS_SQ;
+            
+            this.dx += dx_mouse * forceFactor * MOUSE_REPEL_FORCE; 
+            this.dy += dy_mouse * forceFactor * MOUSE_REPEL_FORCE;
+            
+            this.color = `rgba(${this.baseRGB}, 1.0)`; 
+        } else {
+            this.color = `rgba(${this.baseRGB}, 0.5)`; 
+        }
+        
+        // 3. UPDATE POSITION AND FRICTION
+        this.dx *= currentFriction;
+        this.dy *= currentFriction;
+
+        this.x += this.dx;
+        this.y += this.dy;
+
+        // 4. BOUNDARY CHECK
+        if (this.x < 0) { this.x = 0; this.dx *= -0.8; }
+        if (this.x > canvas.width - dotSize) { this.x = canvas.width - dotSize; this.dx *= -0.8; }
+        if (this.y < 0) { this.y = 0; this.dy *= -0.8; }
+        if (this.y > canvas.height - dotSize) { this.y = canvas.height - dotSize; this.dy *= -0.8; }
     }
 }
 
-// 3. Create AI Clouds (Processing)
-function createAIClouds() {
-    if (window.innerWidth < 768) return;
-    
-    const container = document.getElementById('ecosystem-layer');
-    const cloudCount = 4;
-    
-    for (let i = 0; i < cloudCount; i++) {
-        const cloud = document.createElement('div');
-        cloud.className = 'ai-cloud';
+// --- MORPHING SEQUENCE LOGIC ---
+let DOT_COUNT;
+
+function precalculateShapes() {
+    let maxCoords = 0;
+    allShapeCoords = TARGET_WORDS.map(word => {
+        const scaledCoords = {};
+        SCALING_FACTORS.forEach(scale => {
+            const coords = generateTextCoords(word, FONT_SIZE, PIXEL_DENSITY, scale);
+            scaledCoords[scale] = coords;
+            maxCoords = Math.max(maxCoords, coords.length);
+        });
+        return scaledCoords;
+    });
+    DOT_COUNT = maxCoords + 10; 
+}
+
+function initDots() {
+    dots = [];
+    for (let i = 0; i < DOT_COUNT; i++) {
+        const initialX = Math.random() * canvas.width;
+        const initialY = Math.random() * canvas.height;
         
-        const top = Math.random() * 50 + 10; // 10% to 60%
-        const delay = Math.random() * 15;
-        const duration = Math.random() * 10 + 20; // 20-30 seconds
-        const size = Math.random() * 40 + 100; // 100-140px
-        const opacity = Math.random() * 0.2 + 0.1;
+        const rgb = COLOR_PALETTE[Math.floor(Math.random() * COLOR_PALETTE.length)];
         
-        cloud.style.cssText = `
-            top: ${top}%;
-            width: ${size}px;
-            height: ${size * 0.3}px;
-            animation-delay: ${delay}s;
-            animation-duration: ${duration}s;
-            opacity: ${opacity};
-        `;
-        
-        container.appendChild(cloud);
+        const dot = new Dot(initialX, initialY, rgb, i);
+        dots.push(dot);
     }
 }
 
-// 4. Create Marketing Sun (Success/Results)
-function createMarketingSun() {
-    if (window.innerWidth < 768) return;
+function setNextTargetShape() {
+    currentScale = SCALING_FACTORS[Math.floor(Math.random() * SCALING_FACTORS.length)];
     
-    const container = document.getElementById('ecosystem-layer');
-    const sun = document.createElement('div');
-    sun.className = 'marketing-sun';
+    const scaledShapeCoords = allShapeCoords[currentShapeIndex];
+    const currentCoords = scaledShapeCoords[currentScale];
     
-    sun.style.cssText = `
-        top: 20%;
-        left: 80%;
-    `;
+    const padding = 100; 
     
-    container.appendChild(sun);
-}
+    const randX = padding + Math.random() * (canvas.width - 2 * padding);
+    const randY = padding + Math.random() * (canvas.height - 2 * padding);
+    
+    currentRandomCenter.x = randX;
+    currentRandomCenter.y = randY;
 
-// 5. Create Ecosystem Particles
-function createEcosystemParticles() {
-    if (window.innerWidth < 768) return;
-    
-    const container = document.getElementById('ecosystem-layer');
-    const particleCount = 25;
-    
-    const particleColors = [
-        'var(--ai-blue)',
-        'var(--data-green)',
-        'var(--organic-green)',
-        'var(--ecosystem-teal)',
-        'var(--growth-orange)',
-        'var(--marketing-purple)'
-    ];
-    
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'ecosystem-particle';
-        
-        const left = Math.random() * 100;
-        const delay = Math.random() * 15;
-        const duration = Math.random() * 10 + 15; // 15-25 seconds
-        const size = Math.random() * 3 + 3; // 3-6px
-        const color = particleColors[Math.floor(Math.random() * particleColors.length)];
-        
-        particle.style.cssText = `
-            left: ${left}%;
-            width: ${size}px;
-            height: ${size}px;
-            background: ${color};
-            box-shadow: 0 0 ${size * 2}px ${color};
-            animation-delay: ${delay}s;
-            animation-duration: ${duration}s;
-        `;
-        
-        container.appendChild(particle);
-    }
-}
-
-// 6. Interactive Mouse Overlay
-function initInteractiveOverlay() {
-    if (window.innerWidth < 768) return;
-    
-    const overlay = document.getElementById('interactive-overlay');
-    
-    document.addEventListener('mousemove', (e) => {
-        const x = (e.clientX / window.innerWidth) * 100;
-        const y = (e.clientY / window.innerHeight) * 100;
-        
-        overlay.style.setProperty('--mouse-x', `${x}%`);
-        overlay.style.setProperty('--mouse-y', `${y}%`);
+    dots.forEach(dot => {
+        dot.setTarget(currentCoords, randX, randY);
     });
 }
 
-// 7. Initialize Ecosystem Effects
-function initEcosystemEffects() {
-    createGrowthTrees();
-    createDataRivers();
-    createAIClouds();
-    createMarketingSun();
-    createEcosystemParticles();
-    initInteractiveOverlay();
+function startMorphSequence() {
+    // 1. TRANSITION TO FORMING TEXT (MORPHING - 4 seconds)
+    setNextTargetShape(); 
+    currentState = STATE_MORPHING;
+    
+    // 2. DISPLAY TEXT (SHAPE_DISPLAY - 1 second)
+    setTimeout(() => {
+        currentState = STATE_SHAPE_DISPLAY;
+        
+        // 3. TRANSITION FROM TEXT TO SCATTERED
+        setTimeout(() => {
+            // Apply initial push force when scattering
+            dots.forEach(dot => dot.applyScatterPush());
+            
+            currentState = STATE_SCATTERED;
+            currentShapeIndex = (currentShapeIndex + 1) % TARGET_WORDS.length;
+            
+            // 4. SCATTERED -> REPEAT TEXT FORMATION (After 2 seconds in scattered state)
+            setTimeout(startMorphSequence, 2000); 
+
+        }, 1000); // HOLD TEXT FOR 1 SECOND
+
+    }, 4000); // FORM TEXT IN 4 SECONDS
 }
+
+// --- BASIC INITIALIZATION FUNCTIONS ---
+function setCanvasSize() {
+    canvas.width = container.clientWidth;
+    canvas.height = container.clientHeight;
+    
+    if (allShapeCoords.length === 0) {
+        precalculateShapes();
+        initDots();
+        
+        currentState = STATE_SCATTERED; 
+        setTimeout(startMorphSequence, 2000); 
+    }
+}
+
+// --- MAIN ANIMATION LOOP ---
+function drawDots() {
+    // Use fade effect for smoother transitions
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.15)'; 
+    ctx.fillRect(0, 0, canvas.width, canvas.height); 
+    
+    dots.forEach(dot => {
+        dot.update();
+        dot.draw();
+    });
+    window.requestAnimationFrame(drawDots); 
+}
+
+// --- MOUSE AND TOUCH INTERACTION LOGIC ---
+function updateMousePosition(clientX, clientY) {
+    const rect = container.getBoundingClientRect();
+    mouse.x = clientX - rect.left; 
+    mouse.y = clientY - rect.top;
+}
+
+// Mouse interaction
+document.addEventListener('mousemove', (event) => {
+    updateMousePosition(event.clientX, event.clientY);
+});
+
+// Touch interaction for mobile
+document.addEventListener('touchmove', (event) => {
+    updateMousePosition(event.touches[0].clientX, event.touches[0].clientY);
+    event.preventDefault(); 
+}, { passive: false });
+
+container.addEventListener('mouseleave', () => {
+    mouse.x = -1000; 
+    mouse.y = -1000;
+});
+
+window.addEventListener('touchend', () => {
+     mouse.x = -1000; 
+     mouse.y = -1000;
+});
+
+// --- INITIALIZE AND START ANIMATION ---
+function initBackground() {
+    initParameters();
+    setCanvasSize();
+    drawDots();
+}
+
+// Start background
+initBackground();
+window.addEventListener('resize', () => {
+     canvas.width = container.clientWidth;
+     canvas.height = container.clientHeight;
+     setNextTargetShape();
+}); 
 
 // ====================
 // NAVIGATION FUNCTIONALITY
 // ====================
 document.addEventListener('DOMContentLoaded', function() {
-    // Kiểm tra performance và chỉ chạy hiệu ứng nếu device đủ mạnh
-    const isLowEndDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) &&
-                          (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
-    
-    if (!isLowEndDevice && window.innerWidth >= 768) {
-        initEcosystemEffects();
-    } else {
-        // Trên device yếu hoặc mobile, tắt tất cả hiệu ứng nền phức tạp
-        document.getElementById('ecosystem-layer').style.display = 'none';
-        document.getElementById('interactive-overlay').style.display = 'none';
-    }
-    
     const navbar = document.getElementById('navbar');
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
@@ -1665,7 +1521,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('.nav-link');
     const logo = document.querySelector('.logo');
     
-    // Tính toán chiều cao navbar chính xác
     function getNavbarHeight() {
         return navbar.offsetHeight;
     }
@@ -1689,30 +1544,27 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = '';
     });
     
-    // Hàm xử lý scroll chung
     function handleScrollToTarget(e, targetId) {
         e.preventDefault();
         
         const targetElement = document.querySelector(targetId);
         
         if (targetElement) {
-            // Đóng menu mobile
+            // Close mobile menu
             navMenu.classList.remove('active');
             overlay.classList.remove('active');
             hamburger.innerHTML = '<i class="fas fa-bars"></i>';
             document.body.style.overflow = '';
             
-            // Tính toán offset chính xác để session khít với menu bar
+            // Calculate offset
             const navbarHeight = getNavbarHeight();
             
-            // Lấy vị trí thực tế của target element
             const targetRect = targetElement.getBoundingClientRect();
             const targetPosition = window.pageYOffset + targetRect.top;
             
-            // Tính toán offset để session bắt đầu ngay dưới navbar
             const offsetPosition = targetPosition - navbarHeight + 5;
             
-            // Scroll đến vị trí
+            // Scroll to position
             window.scrollTo({
                 top: offsetPosition,
                 behavior: 'smooth'
@@ -1725,19 +1577,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 correspondingNavLink.classList.add('active');
             }
             
-            // Cập nhật URL hash
+            // Update URL hash
             history.pushState(null, null, targetId);
         }
     }
     
-    // Xử lý click cho logo để điều hướng về #me
+    // Logo click handler
     if (logo) {
         logo.addEventListener('click', function(e) {
             handleScrollToTarget(e, '#me');
         });
     }
     
-    // Xử lý click cho nav links
+    // Nav links click handler
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
@@ -1795,7 +1647,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Xử lý hash URL khi page load
+    // Handle initial hash URL
     function handleInitialHash() {
         if (window.location.hash) {
             const targetElement = document.querySelector(window.location.hash);
@@ -1817,7 +1669,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     handleInitialHash();
     
-    // JavaScript để xử lý click trên link giả định
+    // Handle fake links
     const fakeLinks = document.querySelectorAll('a[href^="#"]:not([href="#"]):not(.nav-link):not(.logo)');
     
     fakeLinks.forEach(link => {
@@ -1863,7 +1715,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('touchmove', function(e) {
 }, { passive: true });
 
-// Fix cho iOS
+// Fix for iOS
 if (/iPhone|iPad|iPod/.test(navigator.platform)) {
     document.addEventListener('touchstart', function() {}, {passive: true});
 }
