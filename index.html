@@ -27,6 +27,7 @@
             color:var(--text);
             overflow-x:clip;
             min-height: 100vh;
+            -webkit-overflow-scrolling: touch; /* Added for smooth mobile scrolling */
         }
         
         /* ====================
@@ -41,6 +42,7 @@
             z-index: -1;
             overflow: hidden;
             background-color: #000000;
+            pointer-events: none; /* Allow clicks to pass through */
         }
         
         #pixel-canvas {
@@ -244,8 +246,8 @@
                 width: 300px;
                 height: 100vh;
                 background: rgba(10, 14, 23, 0.98);
-                backdrop-filter: none;
-                -webkit-backdrop-filter: none;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
                 flex-direction: column;
                 justify-content: flex-start;
                 align-items: flex-start;
@@ -258,6 +260,7 @@
                 transform: translateZ(0);
                 will-change: transform;
                 -webkit-transform: translateZ(0);
+                overflow-y: auto; /* Allow scrolling if menu is too long */
             }
             
             .nav-menu.active {
@@ -298,37 +301,15 @@
             
             /* Optimize for mobile */
             .navbar {
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
+                backdrop-filter: blur(5px) !important;
+                -webkit-backdrop-filter: blur(5px) !important;
                 background: rgba(10, 14, 23, 0.98) !important;
             }
             
             .card {
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
+                backdrop-filter: blur(10px) !important;
+                -webkit-backdrop-filter: blur(10px) !important;
                 background: rgba(20, 25, 40, 0.95) !important;
-                transform: none !important;
-                -webkit-transform: none !important;
-                transition: none !important;
-            }
-            
-            .section, .final, header {
-                transform: none !important;
-                -webkit-transform: none !important;
-                backface-visibility: visible !important;
-                perspective: none !important;
-                will-change: auto !important;
-            }
-            
-            .btn-primary, .btn-outline, .final-cta {
-                transform: none !important;
-                -webkit-transform: none !important;
-                transition: none !important;
-            }
-            
-            .hero h1, .section-headline, .industries h2, .final h2 {
-                transform: none !important;
-                -webkit-transform: none !important;
             }
         }
         
@@ -1219,18 +1200,18 @@ let mouse = { x: -1000, y: -1000 };
 // Initialize parameters based on device
 function initParameters() {
     if (window.innerWidth < 768) {
-        // Mobile settings - optimized for performance
-        FONT_SIZE = 50;
-        PIXEL_DENSITY = 8;
-        dotSize = 3;
-        SCALING_FACTORS = [0.8, 1.0, 1.2]; // Smaller scaling for mobile
-        SCATTER_INIT_PUSH = 8;
-        INTERACTION_RADIUS_SQ = Math.pow(80, 2);
-        MOUSE_REPEL_FORCE = 0.4;
-        WIND_FORCE = 0.04;
-        SCATTER_FRICTION = 0.97;
-        MORPH_SPRING = 0.025;
-        MORPH_FRICTION = 0.88;
+        // Mobile settings - optimized for performance and larger text
+        FONT_SIZE = 70; // Increased from 50 to 70 for better visibility on mobile
+        PIXEL_DENSITY = 6; // Reduced from 8 to 6 for fewer dots (better performance)
+        dotSize = 4; // Increased from 3 to 4 for better visibility
+        SCALING_FACTORS = [1.0, 1.2, 1.4]; // Larger scaling for mobile
+        SCATTER_INIT_PUSH = 6; // Reduced for smoother animation
+        INTERACTION_RADIUS_SQ = Math.pow(120, 2); // Increased interaction area
+        MOUSE_REPEL_FORCE = 0.3; // Reduced force for smoother interaction
+        WIND_FORCE = 0.03; // Reduced for smoother animation
+        SCATTER_FRICTION = 0.96; // Adjusted for smoother movement
+        MORPH_SPRING = 0.02; // Reduced for smoother morphing
+        MORPH_FRICTION = 0.85; // Adjusted for mobile
     } else {
         // Desktop settings
         FONT_SIZE = 70;
@@ -1380,7 +1361,7 @@ function precalculateShapes() {
         });
         return scaledCoords;
     });
-    DOT_COUNT = maxCoords + 10; 
+    DOT_COUNT = Math.min(maxCoords + 10, window.innerWidth < 768 ? 400 : 600); // Reduced dot count for mobile
 }
 
 function initDots() {
@@ -1455,6 +1436,7 @@ function setCanvasSize() {
 }
 
 // --- MAIN ANIMATION LOOP ---
+let animationFrameId;
 function drawDots() {
     // Use fade effect for smoother transitions
     ctx.fillStyle = 'rgba(0, 0, 0, 0.15)'; 
@@ -1464,7 +1446,7 @@ function drawDots() {
         dot.update();
         dot.draw();
     });
-    window.requestAnimationFrame(drawDots); 
+    animationFrameId = window.requestAnimationFrame(drawDots); 
 }
 
 // --- MOUSE AND TOUCH INTERACTION LOGIC ---
@@ -1479,18 +1461,25 @@ document.addEventListener('mousemove', (event) => {
     updateMousePosition(event.clientX, event.clientY);
 });
 
-// Touch interaction for mobile
-document.addEventListener('touchmove', (event) => {
-    updateMousePosition(event.touches[0].clientX, event.touches[0].clientY);
-    event.preventDefault(); 
-}, { passive: false });
+// Touch interaction for mobile - FIXED: Only on container
+container.addEventListener('touchmove', (event) => {
+    if (event.touches.length > 0) {
+        updateMousePosition(event.touches[0].clientX, event.touches[0].clientY);
+    }
+}, { passive: true });
+
+container.addEventListener('touchstart', (event) => {
+    if (event.touches.length > 0) {
+        updateMousePosition(event.touches[0].clientX, event.touches[0].clientY);
+    }
+}, { passive: true });
 
 container.addEventListener('mouseleave', () => {
     mouse.x = -1000; 
     mouse.y = -1000;
 });
 
-window.addEventListener('touchend', () => {
+container.addEventListener('touchend', () => {
      mouse.x = -1000; 
      mouse.y = -1000;
 });
@@ -1499,15 +1488,30 @@ window.addEventListener('touchend', () => {
 function initBackground() {
     initParameters();
     setCanvasSize();
+    
+    // Cancel any existing animation frame
+    if (animationFrameId) {
+        window.cancelAnimationFrame(animationFrameId);
+    }
+    
     drawDots();
 }
 
 // Start background
 initBackground();
+
+// Optimized resize handler
+let resizeTimeout;
 window.addEventListener('resize', () => {
-     canvas.width = container.clientWidth;
-     canvas.height = container.clientHeight;
-     setNextTargetShape();
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        canvas.width = container.clientWidth;
+        canvas.height = container.clientHeight;
+        initParameters();
+        precalculateShapes();
+        initDots();
+        setNextTargetShape();
+    }, 250); // Debounce resize
 }); 
 
 // ====================
@@ -1533,7 +1537,13 @@ document.addEventListener('DOMContentLoaded', function() {
             ? '<i class="fas fa-times"></i>' 
             : '<i class="fas fa-bars"></i>';
             
-        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        // Don't change body overflow to allow scrolling on mobile
+        if (navMenu.classList.contains('active')) {
+            // Only prevent scrolling on the background content
+            document.documentElement.style.overflow = 'hidden';
+        } else {
+            document.documentElement.style.overflow = '';
+        }
     });
     
     // Close mobile menu when clicking overlay
@@ -1541,7 +1551,19 @@ document.addEventListener('DOMContentLoaded', function() {
         navMenu.classList.remove('active');
         overlay.classList.remove('active');
         hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+    });
+    
+    // Close mobile menu when clicking a nav link
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                navMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                document.documentElement.style.overflow = '';
+            }
+        });
     });
     
     function handleScrollToTarget(e, targetId) {
@@ -1550,12 +1572,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const targetElement = document.querySelector(targetId);
         
         if (targetElement) {
-            // Close mobile menu
-            navMenu.classList.remove('active');
-            overlay.classList.remove('active');
-            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-            document.body.style.overflow = '';
-            
             // Calculate offset
             const navbarHeight = getNavbarHeight();
             
@@ -1599,11 +1615,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Navbar scroll effect
     let scrollTimeout;
-    let isScrolling = false;
     
     window.addEventListener('scroll', function() {
-        isScrolling = true;
-        
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(function() {
             if (window.scrollY > 50) {
@@ -1613,14 +1626,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             updateActiveNavLink();
-            isScrolling = false;
         }, 50);
     }, { passive: true });
     
     // Function to update active nav link based on scroll position
     function updateActiveNavLink() {
-        if (isScrolling) return;
-        
         const sections = document.querySelectorAll('header, .section, .final');
         const navbarHeight = getNavbarHeight();
         const scrollPos = window.scrollY + navbarHeight + 100;
@@ -1711,34 +1721,10 @@ document.addEventListener('DOMContentLoaded', function() {
     updateFooterYear();
 });
 
-// Optimize for mobile
-document.addEventListener('touchmove', function(e) {
-}, { passive: true });
-
 // Fix for iOS
 if (/iPhone|iPad|iPod/.test(navigator.platform)) {
     document.addEventListener('touchstart', function() {}, {passive: true});
 }
-
-window.addEventListener('load', function() {
-    if (window.location.hash) {
-        setTimeout(() => {
-            const targetElement = document.querySelector(window.location.hash);
-            if (targetElement) {
-                const navbar = document.getElementById('navbar');
-                const navbarHeight = navbar.offsetHeight;
-                const targetRect = targetElement.getBoundingClientRect();
-                const targetPosition = window.pageYOffset + targetRect.top;
-                const offsetPosition = targetPosition - navbarHeight + 5;
-                
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'instant'
-                });
-            }
-        }, 300);
-    }
-});
 
 // Performance optimization
 let lastScrollY = window.scrollY;
@@ -1756,11 +1742,6 @@ window.addEventListener('scroll', function() {
         ticking = true;
     }
 }, { passive: true });
-
-// Disable smooth scroll on mobile for better performance
-if ('scrollBehavior' in document.documentElement.style && window.innerWidth <= 768) {
-    document.documentElement.style.scrollBehavior = 'auto';
-}
 </script>
 
 </body>
