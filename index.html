@@ -579,6 +579,9 @@
             -ms-user-select: text !important;
         }
 
+        /* FIX 1: THÊM KHOẢNG CÁCH CHO #me ĐỂ KHÔNG BỊ SÁT MENU */
+        /* Navbar cao khoảng 70px trên desktop và ~60px trên mobile */
+        
         /* HERO SECTION - TỐI ƯU CHO MOBILE */
         header{
             min-height:100vh;
@@ -591,6 +594,8 @@
             overflow:hidden;
             transform: translateZ(0);
             -webkit-transform: translateZ(0);
+            /* Thêm padding-top để tránh bị navbar che */
+            padding-top: 120px !important;
         }
 
         /* TÊN CHÍNH */
@@ -710,7 +715,7 @@
                 min-height: 100vh;
                 height: 100vh;
                 padding: 20px 20px 30px;
-                padding-top: 100px;
+                /* Đã có padding-top từ style chung */
             }
         }
 
@@ -721,7 +726,8 @@
                 min-height: 70vh !important;
                 justify-content: flex-start;
                 align-items: flex-start;
-                padding-top: 15vh !important;
+                /* Tăng padding-top để tránh navbar */
+                padding-top: 20vh !important;
             }
             
             .hero{
@@ -773,7 +779,8 @@
                 justify-content: flex-start;
                 align-items: center;
                 display: flex !important;
-                padding-top: 8vh !important;
+                /* Tăng padding-top để tránh navbar mobile */
+                padding-top: 18vh !important;
                 margin-bottom: 20px;
             }
             
@@ -848,7 +855,8 @@
             header{
                 padding:12px 12px 15px !important;
                 min-height: 55vh !important;
-                padding-top: 6vh !important;
+                /* Tăng padding-top cho small mobile */
+                padding-top: 15vh !important;
                 margin-bottom: 15px;
             }
             
@@ -1018,7 +1026,7 @@
         }
 
         /* ====================
-           FINAL CALL-TO-ACTION (#talk) - FIXED FOR MOBILE
+           FIX 2: FINAL CALL-TO-ACTION (#talk) - FULL MÀN HÌNH TRÊN MOBILE
            ==================== */
         .final{
             text-align:center;
@@ -1027,6 +1035,11 @@
             transform: translateZ(0);
             -webkit-transform: translateZ(0);
             border-top: 1px solid rgba(0, 170, 255, 0.1);
+            /* Thêm để full màn hình trên mobile */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         
         .final h2{
@@ -1114,8 +1127,14 @@
                 font-size:1.15rem;
             }
             
+            /* FIX: #talk full màn hình trên tablet */
             .final{
-                padding:90px 15px 100px;
+                padding:90px 15px !important;
+                min-height: 100vh !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
             }
             
             .final h2{
@@ -1140,7 +1159,12 @@
         /* FIX FINAL CTA (#talk) ON MOBILE (480px trở xuống) */
         @media (max-width: 480px) {
             .final{
-                padding:70px 15px 80px;
+                padding:60px 15px !important;
+                min-height: 100vh !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
             }
             
             .final h2{
@@ -1167,7 +1191,12 @@
         /* FIX FINAL CTA (#talk) ON SMALL MOBILE (360px trở xuống) */
         @media (max-width: 360px) {
             .final{
-                padding:60px 12px 70px;
+                padding:50px 12px !important;
+                min-height: 100vh !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
             }
             
             .final h2{
