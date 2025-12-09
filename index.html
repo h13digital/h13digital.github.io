@@ -754,6 +754,221 @@
             font-size:1.25rem;
         }
 
+        /* PORTFOLIO SECTION */
+        .portfolio-section {
+            padding: 100px 30px;
+            max-width: 1500px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+        
+        .portfolio-headline {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(90deg, var(--blue), #0080FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.3;
+            padding: 0 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            transform: translateZ(0);
+        }
+        
+        .portfolio-subtitle {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 70px;
+            color: var(--text);
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            padding: 0 20px;
+            font-weight: 400;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .portfolio-card {
+            background: var(--card);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            border-radius: 36px;
+            padding: 40px;
+            transition: all 0.4s ease;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 102, 255, 0.3);
+            border-color: rgba(0, 102, 255, 0.4);
+        }
+        
+        .portfolio-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--blue), var(--magenta));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+        
+        .portfolio-card p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+        
+        .portfolio-tag {
+            display: inline-block;
+            background: rgba(0, 102, 255, 0.15);
+            color: var(--blue);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            align-self: flex-start;
+        }
+        
+        .portfolio-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            padding: 12px 0;
+            border-top: 1px solid rgba(0, 102, 255, 0.1);
+        }
+        
+        .portfolio-link i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .portfolio-link:hover {
+            color: var(--light-blue);
+        }
+        
+        .portfolio-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Responsive Portfolio */
+        @media (max-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .portfolio-section {
+                padding: 70px 20px;
+            }
+            
+            .portfolio-headline {
+                font-size: 2.3rem;
+                margin-bottom: 40px;
+                line-height: 1.2;
+            }
+            
+            .portfolio-subtitle {
+                font-size: 1.3rem;
+                margin-bottom: 50px;
+                padding: 0 15px;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                margin-top: 40px;
+            }
+            
+            .portfolio-card {
+                padding: 30px 25px;
+                border-radius: 28px;
+            }
+            
+            .portfolio-card h3 {
+                font-size: 1.4rem;
+                margin-bottom: 12px;
+            }
+            
+            .portfolio-card p {
+                font-size: 1.1rem;
+                line-height: 1.5;
+                margin-bottom: 20px;
+            }
+            
+            .portfolio-link {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .portfolio-section {
+                padding: 60px 15px;
+            }
+            
+            .portfolio-headline {
+                font-size: 1.9rem;
+                margin-bottom: 30px;
+                padding: 0 10px;
+            }
+            
+            .portfolio-subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 40px;
+                padding: 0 10px;
+                line-height: 1.5;
+            }
+            
+            .portfolio-card {
+                padding: 25px 20px;
+                border-radius: 24px;
+            }
+            
+            .portfolio-card h3 {
+                font-size: 1.3rem;
+            }
+            
+            .portfolio-card p {
+                font-size: 1rem;
+            }
+            
+            .portfolio-tag {
+                font-size: 0.85rem;
+                padding: 5px 12px;
+            }
+        }
+
         /* FINAL CALL-TO-ACTION */
         .final{
             text-align:center;
@@ -1056,6 +1271,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="#portfolio" class="nav-link">
+                    <i class="fas fa-briefcase"></i>
+                    Portfolio
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="#talk" class="nav-link">
                     <i class="fas fa-comments"></i>
                     Talk
@@ -1139,6 +1360,62 @@
         <div class="card">
             <h3>High-LTV B2B & SaaS</h3>
             <p>180-day LTV prediction → paid acquisition becomes pure profit center</p>
+        </div>
+    </div>
+</div>
+
+<!-- PORTFOLIO SECTION -->
+<div class="portfolio-section" id="portfolio">
+    <h2 class="portfolio-headline">Web3 & Performance Marketing Portfolios</h2>
+    <p class="portfolio-subtitle">Real-world systems built for regulated crypto & fintech niches — from dashboards to go-to-market strategies</p>
+    
+    <div class="portfolio-grid">
+        <div class="portfolio-card">
+            <span class="portfolio-tag">Web3 Gaming Analytics</span>
+            <h3>Web3 Gaming Marketing Performance Dashboard</h3>
+            <p>A comprehensive real-time analytics dashboard built for Web3 gaming projects, tracking user acquisition, retention, and lifetime value across blockchain gaming ecosystems.</p>
+            <a href="https://h13digital.github.io/porfolio-web3gaming/index.html" 
+               class="portfolio-link" 
+               target="_blank"
+               aria-label="View Web3 Gaming Marketing Performance Dashboard">
+                View Live Dashboard <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+        
+        <div class="portfolio-card">
+            <span class="portfolio-tag">Crypto Trading Strategy</span>
+            <h3>Crypto Copy Trading Platform - Go-To-Market Strategy</h3>
+            <p>Complete market entry strategy for a crypto copy trading platform, including user acquisition funnels, regulatory compliance framework, and automated trading signal distribution systems.</p>
+            <a href="https://h13digital.github.io/porfolio-gtmplan-copy-trading/index.html" 
+               class="portfolio-link" 
+               target="_blank"
+               aria-label="View Crypto Copy Trading Platform Go-To-Market Strategy">
+                View Strategy Document <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+        
+        <div class="portfolio-card">
+            <span class="portfolio-tag">Lead Generation System</span>
+            <h3>Crypto Trading Lead Capture & Nurture System</h3>
+            <p>Automated HubSpot-based lead management system for crypto trading education, featuring smart forms, offline submission handling, and multi-channel nurture sequences for high-intent leads.</p>
+            <a href="https://h13digital.github.io/hubspot-crypto/index.html" 
+               class="portfolio-link" 
+               target="_blank"
+               aria-label="View Crypto Trading Lead Capture System">
+                View Lead System <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+        
+        <div class="portfolio-card">
+            <span class="portfolio-tag">Crypto Education Platform</span>
+            <h3>Crypto Fundamentals Mastery Platform</h3>
+            <p>A complete educational ecosystem for crypto beginners to advanced traders, featuring modular course delivery, progress tracking, and community integration for sustained engagement.</p>
+            <a href="https://h13digital.github.io/hubspot-crypto/index.html" 
+               class="portfolio-link" 
+               target="_blank"
+               aria-label="View Crypto Fundamentals Course Platform">
+                View Course Platform <i class="fas fa-external-link-alt"></i>
+            </a>
         </div>
     </div>
 </div>
@@ -1633,7 +1910,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Function to update active nav link based on scroll position
     function updateActiveNavLink() {
-        const sections = document.querySelectorAll('header, .section, .final');
+        const sections = document.querySelectorAll('header, .section, .portfolio-section, .final');
         const navbarHeight = getNavbarHeight();
         const scrollPos = window.scrollY + navbarHeight + 100;
         
